@@ -20,7 +20,7 @@ def setup():
 	with open(path, 'r') as fil:
 		r = csv.reader(fil)
 		for line in r:
-				labels.append(line[0])
+				labels.append(int(line[0]))
 				pixels.append(line[1:])
 
 	print(len(labels))
