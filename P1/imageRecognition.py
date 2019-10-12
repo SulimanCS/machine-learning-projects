@@ -32,6 +32,7 @@ def setup():
 		pixels[i].insert(0, 1.0)
 		for j in range (len(pixels[i])):
 			if j == 0:
+				pixels[i][j] = numpy.float16(pixels[i][j])
 				continue
 			# divide every pixel value to be between 0 and 1
 			pixels[i][j] = numpy.float16(pixels[i][j])
