@@ -43,3 +43,21 @@ def setup():
 	print(len(pixels[0]))
 
 	return labels, pixels
+class perceptron:
+
+	weights = []
+	y = []
+	t = []
+	nclass = -1
+
+	def __init__(self, nclass):
+
+		self.weights = []
+		for i in range(785):
+			z = round(numpy.random.uniform(-0.5, 0.5), 4)
+			self.weights.append(z)
+
+		self.y = []
+		self.t = []
+		self.nclass = nclass
+
