@@ -285,3 +285,4 @@ def main():
 
 		percentageTrain = multBy100(percentageTrain)
 		percentageTest = multBy100(percentageTest)
+		writeToCSV(learningRateRound, percentageTrain, percentageTest)
