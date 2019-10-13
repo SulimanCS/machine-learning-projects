@@ -277,3 +277,9 @@ def main():
 
 			accuracyTest = round(correct/total, 3)
 
+			percentageTrain.append(accuracyTrain)
+			percentageTest.append(accuracyTest)
+			print('train set accuracy is: {}'.format(accuracyTrain))
+			print('test set accuracy is: {}'.format(accuracyTest))
+			print('\n')
+
