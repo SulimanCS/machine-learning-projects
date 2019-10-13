@@ -165,6 +165,11 @@ def main():
 
 		percentageTrain = []
 		percentageTest = []
+		confusionMatrix = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 		p0 = perceptron(0)
 		p1 = perceptron(1)
 		p2 = perceptron(2)
@@ -283,10 +288,13 @@ def main():
 					#print('wrong output')
 					correct += 0
 
+				confusionMatrix[testLabels[i]][max(largest, key=largest.get)]+=1
 				total += 1
 
 			accuracyTest = round(correct/total, 3)
 
+			print('Confusion matrix for learning round #{}'.format(learningRateRound))
+			print(pd.DataFrame(confusionMatrix))
 			percentageTrain.append(accuracyTrain)
 			percentageTest.append(accuracyTest)
 			print('train set accuracy is: {}'.format(accuracyTrain))
