@@ -127,3 +127,14 @@ class perceptron:
 			result += self.weights[j] * pixelsPerImage[j]
 		return result
 
+def main():
+
+	learningRate = 0
+	for learningRateRound in range(1, 4):
+		if learningRateRound == 1:
+			learningRate = 0.001
+		elif learningRateRound == 2:
+			learningRate = 0.01
+		else:
+			learningRate = 0.1
+
