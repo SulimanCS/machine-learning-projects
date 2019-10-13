@@ -151,3 +151,18 @@ def main():
 		p8 = perceptron(8)
 		p9 = perceptron(9)
 
+		for epoch in range(51):
+			print('====================================================\n')
+			print('Learning round #{}, epoch #{}'.format(learningRateRound, epoch))
+			for i in range(len(pixels)):
+				p0.compute(labels[i], pixels[i], i, learningRate)
+				p1.compute(labels[i], pixels[i], i, learningRate)
+				p2.compute(labels[i], pixels[i], i, learningRate)
+				p3.compute(labels[i], pixels[i], i, learningRate)
+				p4.compute(labels[i], pixels[i], i, learningRate)
+				p5.compute(labels[i], pixels[i], i, learningRate)
+				p6.compute(labels[i], pixels[i], i, learningRate)
+				p7.compute(labels[i], pixels[i], i, learningRate)
+				p8.compute(labels[i], pixels[i], i, learningRate)
+				p9.compute(labels[i], pixels[i], i, learningRate)
+
