@@ -4,6 +4,9 @@ import csv
 import time
 import numpy
 import random
+# record when the program has started
+start_time = time.time()
+
 def setupTrainSet():
 
 	global TRAINSET
