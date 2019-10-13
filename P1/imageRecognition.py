@@ -283,3 +283,5 @@ def main():
 			print('test set accuracy is: {}'.format(accuracyTest))
 			print('\n')
 
+		percentageTrain = multBy100(percentageTrain)
+		percentageTest = multBy100(percentageTest)
