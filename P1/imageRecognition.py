@@ -295,6 +295,9 @@ def main():
 
 			print('Confusion matrix for learning round #{}'.format(learningRateRound))
 			print(pd.DataFrame(confusionMatrix))
+			with open('learning_round_'+str(learningRateRound)+'_confusion_matrix.txt', 'w') as f:
+				print(pd.DataFrame(confusionMatrix), file=f)
+
 			percentageTrain.append(accuracyTrain)
 			percentageTest.append(accuracyTest)
 			print('train set accuracy is: {}'.format(accuracyTrain))
