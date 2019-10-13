@@ -135,7 +135,7 @@ def multBy100(listt):
 
 def writeToCSV(learningRateRound, percentageTrain, percentageTest):
 
-	filename = 'learningRound'+str(learningRateRound)+'2.csv'
+	filename = 'learningRound'+str(learningRateRound)+'.csv'
 	with open(filename, 'w') as write:
 		write = csv.writer(write)
 		write.writerow(['epoch', '% train set', '% test set'])
