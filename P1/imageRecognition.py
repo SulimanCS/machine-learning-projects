@@ -286,3 +286,6 @@ def main():
 		percentageTrain = multBy100(percentageTrain)
 		percentageTest = multBy100(percentageTest)
 		writeToCSV(learningRateRound, percentageTrain, percentageTest)
+
+main()
+print("--- %s seconds ---" % (time.time() - start_time))
