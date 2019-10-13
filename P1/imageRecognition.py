@@ -74,6 +74,15 @@ def setupTestSet():
 	return labels, pixels
 
 labels, pixels = setupTrainSet()
+# using zip, both lists (labels and image pixels)
+# are shuffled in sync so that labels won't
+# be linked to the wrong image
+rand = list(zip(labels, pixels))
+random.shuffle(rand)
+labels, pixels = zip(*rand)
+labels = list(labels)
+pixels = list(pixels)
+
 testLabels, testPixels = setupTestSet()
 
 class perceptron:
