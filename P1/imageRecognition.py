@@ -4,6 +4,7 @@ import csv
 import time
 import numpy
 import random
+import pandas as pd
 # record when the program has started
 start_time = time.time()
 
