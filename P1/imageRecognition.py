@@ -214,3 +214,51 @@ def main():
 
 			accuracyTrain = round(correct/total, 3)
 
+			correct = 0
+			total = 0
+
+			for i in range(len(testPixels)):
+
+				largest = {}
+
+				res0 = p0.calc(testPixels[i], i)
+				largest[0] = res0
+
+				res1 = p1.calc(testPixels[i], i)
+				largest[1] = res1
+
+				res2 = p2.calc(testPixels[i], i)
+				largest[2] = res2
+
+				res3 = p3.calc(testPixels[i], i)
+				largest[3] = res3
+
+				res4 = p4.calc(testPixels[i], i)
+				largest[4] = res4
+
+				res5 = p5.calc(testPixels[i], i)
+				largest[5] = res5
+
+				res6 = p6.calc(testPixels[i], i)
+				largest[6] = res6
+
+				res7 = p7.calc(testPixels[i], i)
+				largest[7] = res7
+
+				res8 = p8.calc(testPixels[i], i)
+				largest[8] = res8
+
+				res9 = p9.calc(testPixels[i], i)
+				largest[9] = res9
+
+				if testLabels[i] == max(largest, key=largest.get):
+					#print('correct output')
+					correct += 1
+				else:
+					#print('wrong output')
+					correct += 0
+
+				total += 1
+
+			accuracyTest = round(correct/total, 3)
+
