@@ -166,3 +166,51 @@ def main():
 				p8.compute(labels[i], pixels[i], i, learningRate)
 				p9.compute(labels[i], pixels[i], i, learningRate)
 
+			correct = 0
+			total = 0
+
+			for i in range(len(pixels)):
+
+				largest = {}
+
+				res0 = p0.calc(pixels[i], i)
+				largest[0] = res0
+
+				res1 = p1.calc(pixels[i], i)
+				largest[1] = res1
+
+				res2 = p2.calc(pixels[i], i)
+				largest[2] = res2
+
+				res3 = p3.calc(pixels[i], i)
+				largest[3] = res3
+
+				res4 = p4.calc(pixels[i], i)
+				largest[4] = res4
+
+				res5 = p5.calc(pixels[i], i)
+				largest[5] = res5
+
+				res6 = p6.calc(pixels[i], i)
+				largest[6] = res6
+
+				res7 = p7.calc(pixels[i], i)
+				largest[7] = res7
+
+				res8 = p8.calc(pixels[i], i)
+				largest[8] = res8
+
+				res9 = p9.calc(pixels[i], i)
+				largest[9] = res9
+
+				if labels[i] == max(largest, key=largest.get):
+					#print('correct output')
+					correct += 1
+				else:
+					#print('wrong output')
+					correct += 0
+
+				total += 1
+
+			accuracyTrain = round(correct/total, 3)
+
