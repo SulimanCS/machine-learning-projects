@@ -127,6 +127,12 @@ class perceptron:
 			result += self.weights[j] * pixelsPerImage[j]
 		return result
 
+def multBy100(listt):
+
+	for i in range(len(listt)):
+		listt[i] = listt[i] * 100
+	return listt
+
 def main():
 
 	learningRate = 0
