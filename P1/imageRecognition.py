@@ -70,6 +70,9 @@ def setupTestSet():
 
 	return labels, pixels
 
+labels, pixels = setupTrainSet()
+testLabels, testPixels = setupTestSet()
+
 class perceptron:
 
 	weights = []
