@@ -94,3 +94,29 @@ class perceptron:
 		self.t = []
 		self.nclass = nclass
 
+	def compute(self, label, pixelsPerImage, imageIndex, learningRate):
+
+		if label == self.nclass:
+			tt = 1
+			self.t.append(1)
+			# if imageIndex % 10000 == 0:
+			# 	print('match perceptron: {} @ {}'.format(self.nclass, imageIndex))
+		else:
+			tt = 0
+			self.t.append(0)
+
+		result = 0.0
+		for i in range(len(pixelsPerImage)):
+			result += self.weights[i] * pixelsPerImage[i]
+
+		if result > 0:
+			yy = 1
+			self.y.append(1)
+		else:
+			yy = 0
+			self.y.append(0)
+
+		if (tt != yy):
+			for z in range(len(pixelsPerImage)):
+					self.weights[z] += learningRate * (tt - yy) * pixelsPerImage[z]
+
