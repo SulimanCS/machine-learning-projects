@@ -84,7 +84,7 @@ class perceptron:
 
 		self.weights = []
 		for i in range(785):
-			z = round(numpy.random.uniform(-0.5, 0.5), 4)
+			z = random.uniform(-0.5, 0.5)
 			self.weights.append(z)
 
 		self.y = []
