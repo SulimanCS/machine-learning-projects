@@ -35,6 +35,39 @@ def setupTrainSet():
 			pixels.append(pxl)
 
 	return labels, pixels
+def setupTestSet():
+
+	global TRAINSET
+	TESTSET = 'mnist_test.csv'
+	dirr = os.path.dirname(__file__)
+	path = os.path.join(dirr, TESTSET)
+
+	# initialize the lables/output and pixels lists
+	# the lables are meant to be 1D list, and the pixels 2D
+	labels = []
+	pixels = []
+
+	# read in the lables and images info
+	with open(path, 'r') as fil:
+		r = csv.reader(fil)
+		# preprocessing, go through every pixel of every image
+		for i, line in enumerate(r):
+			lbl = (int(line[0]))
+			pxl = line[1:]
+			# insert the bias at the beginning of the list
+			pxl.insert(0, 1.0)
+
+			# divide every pixel value to be between 0 and 1
+			for j in range(len(pxl)):
+				pxl[j] = float(pxl[j])
+				pxl[j] = pxl[j]/255
+
+			# store the values to be returned
+			labels.append(lbl)
+			pixels.append(pxl)
+
+	return labels, pixels
+
 class perceptron:
 
 	weights = []
