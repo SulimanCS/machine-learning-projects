@@ -3,6 +3,7 @@ import os
 import csv
 import time
 import numpy
+import random
 def setupTrainSet():
 
 	global TRAINSET
@@ -35,6 +36,7 @@ def setupTrainSet():
 			pixels.append(pxl)
 
 	return labels, pixels
+
 def setupTestSet():
 
 	global TRAINSET
