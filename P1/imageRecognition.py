@@ -120,3 +120,10 @@ class perceptron:
 			for z in range(len(pixelsPerImage)):
 					self.weights[z] += learningRate * (tt - yy) * pixelsPerImage[z]
 
+	def calc(self, pixelsPerImage, imageIndex):
+
+		result = 0.0
+		for j in range(len(pixelsPerImage)):
+			result += self.weights[j] * pixelsPerImage[j]
+		return result
+
