@@ -3,11 +3,10 @@ import os
 import csv
 import time
 import numpy
-def setup():
+def setupTrainSet():
 
 	global TRAINSET
-	TRAINSET = 'mnist_test.csv'
-	#TRAINSET = 'mnist_train.csv'
+	TRAINSET = 'mnist_train.csv'
 	dirr = os.path.dirname(__file__)
 	path = os.path.join(dirr, TRAINSET)
 
@@ -19,28 +18,21 @@ def setup():
 	# read in the lables and images info
 	with open(path, 'r') as fil:
 		r = csv.reader(fil)
-		for line in r:
-				labels.append(int(line[0]))
-				pixels.append(line[1:])
+		# preprocessing, go through every pixel of every image
+		for i, line in enumerate(r):
+			lbl = (int(line[0]))
+			pxl = line[1:]
+			# insert the bias at the beginning of the list
+			pxl.insert(0, 1.0)
 
-	print(len(labels))
-	print(len(pixels))
-
-	# preprocessing, go through every pixel of every image
-	for i in range(len(pixels)):
-		# insert the bias at the beginning of the array
-		pixels[i].insert(0, 1.0)
-		for j in range (len(pixels[i])):
-			if j == 0:
-				pixels[i][j] = numpy.float16(pixels[i][j])
-				continue
 			# divide every pixel value to be between 0 and 1
-			pixels[i][j] = numpy.float16(pixels[i][j])
-			pixels[i][j]= pixels[i][j]/255
-			pixels[i][j] = numpy.float16(pixels[i][j])
+			for j in range(len(pxl)):
+				pxl[j] = float(pxl[j])
+				pxl[j] = pxl[j]/255
 
-	print(len(pixels))
-	print(len(pixels[0]))
+			# store the values to be returned
+			labels.append(lbl)
+			pixels.append(pxl)
 
 	return labels, pixels
 class perceptron:
