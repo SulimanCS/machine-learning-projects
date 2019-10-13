@@ -138,3 +138,16 @@ def main():
 		else:
 			learningRate = 0.1
 
+		percentageTrain = []
+		percentageTest = []
+		p0 = perceptron(0)
+		p1 = perceptron(1)
+		p2 = perceptron(2)
+		p3 = perceptron(3)
+		p4 = perceptron(4)
+		p5 = perceptron(5)
+		p6 = perceptron(6)
+		p7 = perceptron(7)
+		p8 = perceptron(8)
+		p9 = perceptron(9)
+
