@@ -288,15 +288,21 @@ def main():
 					#print('wrong output')
 					correct += 0
 
-				confusionMatrix[testLabels[i]][max(largest, key=largest.get)]+=1
+				if epoch == 50:
+					confusionMatrix[testLabels[i]][max(largest, key=largest.get)]+=1
+
 				total += 1
 
 			accuracyTest = round(correct/total, 3)
 
 			print('Confusion matrix for learning round #{}'.format(learningRateRound))
-			print(pd.DataFrame(confusionMatrix))
-			with open('learning_round_'+str(learningRateRound)+'_confusion_matrix.txt', 'w') as f:
-				print(pd.DataFrame(confusionMatrix), file=f)
+
+			if epoch == 50:
+				print(pd.DataFrame(confusionMatrix))
+
+				filename = 'learning_round_'+str(learningRateRound)+'_confusion_matrix.txt'
+				with open(filename, 'w') as f:
+					print(pd.DataFrame(confusionMatrix), file=f)
 
 			percentageTrain.append(accuracyTrain)
 			percentageTest.append(accuracyTest)
