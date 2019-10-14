@@ -10,7 +10,6 @@ start_time = time.time()
 
 def setupTrainSet():
 
-	global TRAINSET
 	TRAINSET = 'mnist_train.csv'
 	dirr = os.path.dirname(__file__)
 	path = os.path.join(dirr, TRAINSET)
@@ -43,7 +42,6 @@ def setupTrainSet():
 
 def setupTestSet():
 
-	global TRAINSET
 	TESTSET = 'mnist_test.csv'
 	dirr = os.path.dirname(__file__)
 	path = os.path.join(dirr, TESTSET)
