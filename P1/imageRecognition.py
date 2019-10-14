@@ -1,3 +1,9 @@
+# ==============================================
+# Name: Suliman Alsarraf
+# Assignment: Project 1
+# Class: CS445 Machine Learning
+# ==============================================
+
 import sys
 import os
 import csv
