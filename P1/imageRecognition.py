@@ -5,11 +5,14 @@ import time
 import numpy
 import random
 import pandas as pd
+
 # record when the program has started
 start_time = time.time()
 
 def setupTrainSet():
 
+	# get the training set path relative to the
+	# execution path
 	TRAINSET = 'mnist_train.csv'
 	dirr = os.path.dirname(__file__)
 	path = os.path.join(dirr, TRAINSET)
@@ -42,6 +45,8 @@ def setupTrainSet():
 
 def setupTestSet():
 
+	# get the testing set path relative to the
+	# execution path
 	TESTSET = 'mnist_test.csv'
 	dirr = os.path.dirname(__file__)
 	path = os.path.join(dirr, TESTSET)
@@ -72,18 +77,27 @@ def setupTestSet():
 
 	return labels, pixels
 
+# get the labels and pixels from the
+# MNIST_train.csv
 labels, pixels = setupTrainSet()
-# using zip, both lists (labels and image pixels)
-# are shuffled in sync so that labels won't
-# be linked to the wrong image
+# shuffle the data using zip so that
+# both labels and image pixels
+# are shuffled in-sync
 rand = list(zip(labels, pixels))
 random.shuffle(rand)
 labels, pixels = zip(*rand)
 labels = list(labels)
 pixels = list(pixels)
 
+# get the labels and pixels from the
+# MNIST_test.csv
 testLabels, testPixels = setupTestSet()
 
+# the perceptron class that houses
+# the weights, y (weights * pixels),
+# t (target) and an integer that
+# represents which digit does the
+# instance of the perceptron represents
 class perceptron:
 
 	weights = []
@@ -91,8 +105,11 @@ class perceptron:
 	t = []
 	nclass = -1
 
+	# the class constructor
 	def __init__(self, nclass):
 
+		# randomize the initial weights to be
+		# between (-0.5, 0.5)
 		self.weights = []
 		for i in range(785):
 			z = random.uniform(-0.5, 0.5)
@@ -100,8 +117,11 @@ class perceptron:
 
 		self.y = []
 		self.t = []
+		# the class digit representation is supplied
 		self.nclass = nclass
 
+	# the compute function computes the weights, y and t values after
+	# every epoch
 	def compute(self, label, pixelsPerImage, imageIndex, learningRate):
 
 		if label == self.nclass:
@@ -128,6 +148,7 @@ class perceptron:
 			for z in range(len(pixelsPerImage)):
 					self.weights[z] += learningRate * (tt - yy) * pixelsPerImage[z]
 
+	# the calc function computes weights * x (pixels)
 	def calc(self, pixelsPerImage, imageIndex):
 
 		result = 0.0
@@ -135,12 +156,15 @@ class perceptron:
 			result += self.weights[j] * pixelsPerImage[j]
 		return result
 
+# a function to adjust the percentages to be readable
 def multBy100(listt):
 
 	for i in range(len(listt)):
 		listt[i] = listt[i] * 100
 	return listt
 
+# a function to write the accuracies of
+# every learning rate to an external file
 def writeToCSV(learningRateRound, percentageTrain, percentageTest):
 
 	filename = 'learning_round_'+str(learningRateRound)+'_accuracy.csv'
@@ -150,10 +174,13 @@ def writeToCSV(learningRateRound, percentageTrain, percentageTest):
 		for i in range(len(percentageTrain)):
 			write.writerow([i, percentageTrain[i], percentageTest[i]])
 
+# the main function where the algoirthm takes place
 def main():
 
 	learningRate = 0
 	for learningRateRound in range(1, 4):
+		# based on the current round, adjust
+		# the learning rate (n) value
 		if learningRateRound == 1:
 			learningRate = 0.001
 		elif learningRateRound == 2:
@@ -161,13 +188,17 @@ def main():
 		else:
 			learningRate = 0.1
 
+		# initialize the percentages lists for
+		# the training and testing sets
 		percentageTrain = []
 		percentageTest = []
+		# initialize the confusion matrix per learning rate
 		confusionMatrix = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+		# initialize a perceptron per digit (0-9)
 		p0 = perceptron(0)
 		p1 = perceptron(1)
 		p2 = perceptron(2)
@@ -179,9 +210,11 @@ def main():
 		p8 = perceptron(8)
 		p9 = perceptron(9)
 
+		# loop through the 0...51 epochs
 		for epoch in range(51):
 			print('====================================================\n')
 			print('Learning round #{}, epoch #{}'.format(learningRateRound, epoch))
+			# for every image/image, train and update the weights
 			for i in range(len(pixels)):
 				p0.compute(labels[i], pixels[i], i, learningRate)
 				p1.compute(labels[i], pixels[i], i, learningRate)
@@ -194,9 +227,18 @@ def main():
 				p8.compute(labels[i], pixels[i], i, learningRate)
 				p9.compute(labels[i], pixels[i], i, learningRate)
 
+			# correct/total calculates the accuracy
 			correct = 0
 			total = 0
 
+			# for every image, compute w*x
+			# per perceptron
+			# the perceptron with the largest w*k
+			# value is the perceptron that
+			# represents the prediction
+
+			# this loop is for the training set
+			# accuracy, and predections
 			for i in range(len(pixels)):
 
 				largest = {}
@@ -231,20 +273,26 @@ def main():
 				res9 = p9.calc(pixels[i], i)
 				largest[9] = res9
 
+				# if the prediction matches the label
+				# then it means that the prediction is correct
 				if labels[i] == max(largest, key=largest.get):
 					#print('correct output')
 					correct += 1
+				# otherwise, the prediction is not correct
 				else:
 					#print('wrong output')
 					correct += 0
 
 				total += 1
 
+			# compute the accuracy for the training set
 			accuracyTrain = round(correct/total, 3)
 
 			correct = 0
 			total = 0
 
+			# this loop is for the testing set
+			# accuracy, and predections
 			for i in range(len(testPixels)):
 
 				largest = {}
@@ -279,22 +327,34 @@ def main():
 				res9 = p9.calc(testPixels[i], i)
 				largest[9] = res9
 
+				# if the prediction matches the label
+				# then it means that the prediction is correct
 				if testLabels[i] == max(largest, key=largest.get):
 					#print('correct output')
 					correct += 1
+				# otherwise, the prediction is not correct
 				else:
 					#print('wrong output')
 					correct += 0
 
+				# if the algorithm reached the final epoch
+				# in the learning rate, then compute the confusion
+				# matrix
 				if epoch == 50:
 					confusionMatrix[testLabels[i]][max(largest, key=largest.get)]+=1
 
 				total += 1
 
+			# compute the accuracy for the training set
 			accuracyTest = round(correct/total, 3)
 
 			print('Confusion matrix for learning round #{}'.format(learningRateRound))
 
+			# if the algorithm reached the final epoch
+			# in the learning rate, then print and write
+			# the confusion matrix to an external file
+			# and label the external file with the
+			# number of the learning round
 			if epoch == 50:
 				print(pd.DataFrame(confusionMatrix))
 
@@ -302,15 +362,23 @@ def main():
 				with open(filename, 'w') as f:
 					print(pd.DataFrame(confusionMatrix), file=f)
 
+			# store the accuracies of the training and testing sets
 			percentageTrain.append(accuracyTrain)
 			percentageTest.append(accuracyTest)
+
 			print('train set accuracy is: {}'.format(accuracyTrain))
 			print('test set accuracy is: {}'.format(accuracyTest))
+
 			print('\n')
 
+		# make the poercentages readable
 		percentageTrain = multBy100(percentageTrain)
 		percentageTest = multBy100(percentageTest)
+
+		# write the accuracies to an external file
 		writeToCSV(learningRateRound, percentageTrain, percentageTest)
+
+		# print the accuracies to the standard output
 		print(percentageTrain)
 		print(percentageTest)
 
