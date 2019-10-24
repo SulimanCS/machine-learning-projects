@@ -118,8 +118,8 @@ class perceptron:
 		# between (-0.5, 0.5)
 		self.weights = []
 		for i in range(785):
-			z = random.uniform(-0.5, 0.5)
 			self.weights.append(z)
+			z = random.uniform(-0.05, 0.05)
 
 		self.y = []
 		self.t = []
