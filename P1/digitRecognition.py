@@ -123,11 +123,11 @@ class perceptron:
 	def __init__(self, nclass):
 
 		# randomize the initial weights to be
-		# between (-0.5, 0.5)
-		self.weights = []
+		# between (-0.05, 0.05)
+		self.weights = np.zeros(shape=(785))
 		for i in range(785):
-			self.weights.append(z)
 			z = random.uniform(-0.05, 0.05)
+			self.weights[i] = z
 
 		self.y = []
 		self.t = []
@@ -138,6 +138,7 @@ class perceptron:
 	# every epoch
 	def computeNewWeights(self, label, pixelsPerImage, imageIndex, learningRate):
 
+		# start_time = time.time()
 		if label == self.nclass:
 			tt = 1
 			self.t.append(1)
@@ -148,8 +149,8 @@ class perceptron:
 			self.t.append(0)
 
 		result = 0.0
-		for i in range(len(pixelsPerImage)):
-			result += self.weights[i] * pixelsPerImage[i]
+		# store the sum of the two arrays product into result
+		result = self.weights @ pixelsPerImage
 
 		if result > 0:
 			yy = 1
@@ -159,17 +160,20 @@ class perceptron:
 			self.y.append(0)
 
 		if (tt != yy):
-			for z in range(len(pixelsPerImage)):
-					self.weights[z] += learningRate * (tt - yy) * pixelsPerImage[z]
+			# 𝑤𝑖 ⟵ 𝑤𝑖 + 𝜂(𝑡^𝑘 − 𝑦^𝑘 )𝑥𝑖^𝑘 ,
+			self.weights = self.weights + learningRate * (tt - yy) * pixelsPerImage
 
-	# the calc function computes weights * x (pixels)
-	def calc(self, pixelsPerImage, imageIndex):
+		# if imageIndex == 1000:
+		# 	print("--- %s seconds ---" % (time.time() - start_time))
+
 	# a function that computes the prediction ⟵ weights * x (pixels per image)
 	def prediction(self, pixelsPerImage, imageIndex):
 
 		result = 0.0
-		for j in range(len(pixelsPerImage)):
-			result += self.weights[j] * pixelsPerImage[j]
+		# store the sum of the two arrays product into result
+		# then return it, this is the prediction of a given
+		# perceptron
+		result = self.weights @ pixelsPerImage
 		return result
 
 # a function to adjust the percentages to be readable
