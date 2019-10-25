@@ -8,7 +8,7 @@ import sys
 import os
 import csv
 import time
-import numpy
+import numpy as np
 import random
 import pandas as pd
 
@@ -95,9 +95,17 @@ labels, pixels = zip(*rand)
 labels = list(labels)
 pixels = list(pixels)
 
+# convert the train data list to numpy array
+labels = np.array(labels)
+pixels = np.array(pixels)
+
 # get the labels and pixels from the
 # MNIST_test.csv
 testLabels, testPixels = setupTestSet()
+
+# convert the test data list to numpy array
+testLabels = np.array(testLabels)
+testPixels = np.array(testPixels)
 
 # the perceptron class that houses
 # the weights, y (weights * pixels),
