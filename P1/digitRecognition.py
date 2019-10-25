@@ -134,9 +134,9 @@ class perceptron:
 		# the class digit representation is supplied
 		self.nclass = nclass
 
-	# the compute function computes the weights, y and t values after
+	# a function that computes the weights, y and t values after
 	# every epoch
-	def compute(self, label, pixelsPerImage, imageIndex, learningRate):
+	def computeNewWeights(self, label, pixelsPerImage, imageIndex, learningRate):
 
 		if label == self.nclass:
 			tt = 1
@@ -164,6 +164,8 @@ class perceptron:
 
 	# the calc function computes weights * x (pixels)
 	def calc(self, pixelsPerImage, imageIndex):
+	# a function that computes the prediction ⟵ weights * x (pixels per image)
+	def prediction(self, pixelsPerImage, imageIndex):
 
 		result = 0.0
 		for j in range(len(pixelsPerImage)):
@@ -230,16 +232,16 @@ def main():
 			print('Learning round #{}, epoch #{}'.format(learningRateRound, epoch))
 			# for every image/image, train and update the weights
 			for i in range(len(pixels)):
-				p0.compute(labels[i], pixels[i], i, learningRate)
-				p1.compute(labels[i], pixels[i], i, learningRate)
-				p2.compute(labels[i], pixels[i], i, learningRate)
-				p3.compute(labels[i], pixels[i], i, learningRate)
-				p4.compute(labels[i], pixels[i], i, learningRate)
-				p5.compute(labels[i], pixels[i], i, learningRate)
-				p6.compute(labels[i], pixels[i], i, learningRate)
-				p7.compute(labels[i], pixels[i], i, learningRate)
-				p8.compute(labels[i], pixels[i], i, learningRate)
-				p9.compute(labels[i], pixels[i], i, learningRate)
+				p0.computeNewWeights(labels[i], pixels[i], i, learningRate)
+				p1.computeNewWeights(labels[i], pixels[i], i, learningRate)
+				p2.computeNewWeights(labels[i], pixels[i], i, learningRate)
+				p3.computeNewWeights(labels[i], pixels[i], i, learningRate)
+				p4.computeNewWeights(labels[i], pixels[i], i, learningRate)
+				p5.computeNewWeights(labels[i], pixels[i], i, learningRate)
+				p6.computeNewWeights(labels[i], pixels[i], i, learningRate)
+				p7.computeNewWeights(labels[i], pixels[i], i, learningRate)
+				p8.computeNewWeights(labels[i], pixels[i], i, learningRate)
+				p9.computeNewWeights(labels[i], pixels[i], i, learningRate)
 
 			# correct/total calculates the accuracy
 			correct = 0
@@ -257,34 +259,34 @@ def main():
 
 				largest = {}
 
-				res0 = p0.calc(pixels[i], i)
+				res0 = p0.prediction(pixels[i], i)
 				largest[0] = res0
 
-				res1 = p1.calc(pixels[i], i)
+				res1 = p1.prediction(pixels[i], i)
 				largest[1] = res1
 
-				res2 = p2.calc(pixels[i], i)
+				res2 = p2.prediction(pixels[i], i)
 				largest[2] = res2
 
-				res3 = p3.calc(pixels[i], i)
+				res3 = p3.prediction(pixels[i], i)
 				largest[3] = res3
 
-				res4 = p4.calc(pixels[i], i)
+				res4 = p4.prediction(pixels[i], i)
 				largest[4] = res4
 
-				res5 = p5.calc(pixels[i], i)
+				res5 = p5.prediction(pixels[i], i)
 				largest[5] = res5
 
-				res6 = p6.calc(pixels[i], i)
+				res6 = p6.prediction(pixels[i], i)
 				largest[6] = res6
 
-				res7 = p7.calc(pixels[i], i)
+				res7 = p7.prediction(pixels[i], i)
 				largest[7] = res7
 
-				res8 = p8.calc(pixels[i], i)
+				res8 = p8.prediction(pixels[i], i)
 				largest[8] = res8
 
-				res9 = p9.calc(pixels[i], i)
+				res9 = p9.prediction(pixels[i], i)
 				largest[9] = res9
 
 				# if the prediction matches the label
@@ -311,34 +313,34 @@ def main():
 
 				largest = {}
 
-				res0 = p0.calc(testPixels[i], i)
+				res0 = p0.prediction(testPixels[i], i)
 				largest[0] = res0
 
-				res1 = p1.calc(testPixels[i], i)
+				res1 = p1.prediction(testPixels[i], i)
 				largest[1] = res1
 
-				res2 = p2.calc(testPixels[i], i)
+				res2 = p2.prediction(testPixels[i], i)
 				largest[2] = res2
 
-				res3 = p3.calc(testPixels[i], i)
+				res3 = p3.prediction(testPixels[i], i)
 				largest[3] = res3
 
-				res4 = p4.calc(testPixels[i], i)
+				res4 = p4.prediction(testPixels[i], i)
 				largest[4] = res4
 
-				res5 = p5.calc(testPixels[i], i)
+				res5 = p5.prediction(testPixels[i], i)
 				largest[5] = res5
 
-				res6 = p6.calc(testPixels[i], i)
+				res6 = p6.prediction(testPixels[i], i)
 				largest[6] = res6
 
-				res7 = p7.calc(testPixels[i], i)
+				res7 = p7.prediction(testPixels[i], i)
 				largest[7] = res7
 
-				res8 = p8.calc(testPixels[i], i)
+				res8 = p8.prediction(testPixels[i], i)
 				largest[8] = res8
 
-				res9 = p9.calc(testPixels[i], i)
+				res9 = p9.prediction(testPixels[i], i)
 				largest[9] = res9
 
 				# if the prediction matches the label
