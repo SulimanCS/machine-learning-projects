@@ -101,3 +101,18 @@ testPixels = np.array(testPixels)
 
 def sigmoid(x):
 	return 1/ (1 + math.exp(-x))
+
+# the neuralNetwork class that houses
+# the neural network structure and
+# specifications
+class neuralNetwork:
+
+	inputToHiddenWeights = []
+	hiddenToOutputWeights = []
+	hiddenValues = []
+	outputValues = []
+	y = []
+	t = []
+	learningRate = 0.1
+	momentum = 0.9
+
