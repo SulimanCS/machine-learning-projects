@@ -74,3 +74,27 @@ def setupTestSet():
 			pixels.append(pxl)
 
 	return labels, pixels
+
+# get the labels and pixels from the
+# MNIST_train.csv
+labels, pixels = setupTrainSet()
+# shuffle the data using zip so that
+# both labels and image pixels
+# are shuffled in-sync
+rand = list(zip(labels, pixels))
+random.shuffle(rand)
+labels, pixels = zip(*rand)
+labels = list(labels)
+pixels = list(pixels)
+
+# convert the train data list to numpy array
+labels = np.array(labels)
+pixels = np.array(pixels)
+
+# get the labels and pixels from the
+# MNIST_test.csv
+testLabels, testPixels = setupTestSet()
+
+# convert the test data list to numpy array
+testLabels = np.array(testLabels)
+testPixels = np.array(testPixels)
