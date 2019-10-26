@@ -136,3 +136,30 @@ class neuralNetwork:
 		self.y = []
 		self.t = []
 
+		# # REMOVE, JUST FOR TESTING
+		# self.inputToHiddenWeights = np.zeros(shape=(numHiddenUnits, lengthOfInput))
+		# self.hiddenToOutputWeights = np.zeros(shape=(numOutputUnits, numHiddenUnits+1))
+		# self.inputToHiddenWeights[0][0] = -0.4
+		# self.inputToHiddenWeights[0][1] = 0.2
+		# self.inputToHiddenWeights[0][2] = 0.1
+
+		# self.inputToHiddenWeights[1][0] = -0.2
+		# self.inputToHiddenWeights[1][1] = 0.4
+		# self.inputToHiddenWeights[1][2] = -0.1
+
+		# self.hiddenToOutputWeights[0][0] = 0.1
+		# self.hiddenToOutputWeights[0][1] = -0.2
+		# self.hiddenToOutputWeights[0][2] = 0.1
+
+		# self.hiddenToOutputWeights[1][0] = 0.4
+		# self.hiddenToOutputWeights[1][1] = -0.1
+		# self.hiddenToOutputWeights[1][2] = 0.1
+
+	def forwardPropagation(self, pixels):
+
+		for i in range (len(self.inputToHiddenWeights)):
+			self.hiddenValues[i+1] = sigmoid(self.inputToHiddenWeights[i] @ pixels)
+
+		for i in range(len(self.inputToHiddenWeights)):
+			self.outputValues[i] = sigmoid(self.hiddenToOutputWeights[i] @ self.hiddenValues)
+
