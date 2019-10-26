@@ -116,3 +116,23 @@ class neuralNetwork:
 	learningRate = 0.1
 	momentum = 0.9
 
+	def __init__(self, numHiddenUnits, numOutputUnits, lengthOfInput):
+
+		# initialize the lists to be numpy arrays
+		# and randomize the initial weights
+		# of the input->hidden AND hidden->output
+		# to be between (-0.05, 0.05)
+		self.inputToHiddenWeights = \
+		np.random.rand(numHiddenUnits, lengthOfInput) * (0.05 - (-0.05)) - 0.05
+		self.hiddenToOutputWeights = \
+		np.random.rand(numOutputUnits, numHiddenUnits+1) * (0.05 - (-0.05)) - 0.05
+
+		# initialize h1...hn
+		# initialize o1...0n
+		# initialize hbias to be 1
+		self.hiddenValues = np.zeros(shape=(numHiddenUnits+1))
+		self.hiddenValues[0] = 1
+		self.outputValues = np.zeros(shape=(numOutputUnits))
+		self.y = []
+		self.t = []
+
