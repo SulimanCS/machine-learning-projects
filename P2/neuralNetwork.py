@@ -98,3 +98,6 @@ testLabels, testPixels = setupTestSet()
 # convert the test data list to numpy array
 testLabels = np.array(testLabels)
 testPixels = np.array(testPixels)
+
+def sigmoid(x):
+	return 1/ (1 + math.exp(-x))
