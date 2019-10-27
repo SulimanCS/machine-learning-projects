@@ -111,10 +111,10 @@ class neuralNetwork:
 
 	hiddenToOutputWeights = []
 	hiddenValues = []
-	errorRateHidden = []
+	hiddenErrorRate = []
 
 	outputValues = []
-	errorRateOutput = []
+	outputErrorRate = []
 
 	y = []
 	t = []
@@ -138,10 +138,10 @@ class neuralNetwork:
 		# initialize hbias to be 1
 		self.hiddenValues = np.zeros(shape=(numHiddenUnits+1))
 		self.hiddenValues[0] = 1
-		self.errorRateHidden = np.zeros(shape=(numHiddenUnits))
+		self.hiddenErrorRate = np.zeros(shape=(numHiddenUnits))
 
 		self.outputValues = np.zeros(shape=(numOutputUnits))
-		self.errorRateOutput = np.zeros(shape=(numOutputUnits))
+		self.outputErrorRate = np.zeros(shape=(numOutputUnits))
 
 		self.y = []
 		self.t = []
