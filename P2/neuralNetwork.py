@@ -173,3 +173,24 @@ class neuralNetwork:
 		for i in range(len(self.outputValues)):
 			self.outputValues[i] = sigmoid(self.hiddenToOutputWeights[i] @ self.hiddenValues)
 
+	def backPropagation(self, pixels, label):
+
+		# print(self.hiddenValues)
+		# print(self.outputValues)
+		for i in range(len(self.outputErrorRate)):
+			if label == i:
+				self.outputErrorRate[i] = self.outputValues[i] * (1 - self.outputValues[i]) \
+				* (0.9 - self.outputValues[i])
+			else:
+				self.outputErrorRate[i] = self.outputValues[i] * (1 - self.outputValues[i]) \
+				* (0.1 - self.outputValues[i])
+
+		# print(self.outputErrorRate)
+
+		for i in range(len(self.hiddenErrorRate)):
+			self.hiddenErrorRate[i] = self.hiddenValues[i+1] * (1 - self.hiddenValues[i+1]) \
+			* (self.hiddenToOutputWeights[:,i+1] @ self.outputErrorRate)
+			# print(self.hiddenToOutputWeights[:,i+1], self.outputErrorRate)
+			# print(self.hiddenToOutputWeights[:,i+1] @ self.outputErrorRate)
+		# print(self.hiddenErrorRate)
+
