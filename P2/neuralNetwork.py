@@ -108,11 +108,17 @@ def sigmoid(x):
 class neuralNetwork:
 
 	inputToHiddenWeights = []
+
 	hiddenToOutputWeights = []
 	hiddenValues = []
+	errorRateHidden = []
+
 	outputValues = []
+	errorRateOutput = []
+
 	y = []
 	t = []
+
 	learningRate = 0.1
 	momentum = 0.9
 
@@ -132,7 +138,11 @@ class neuralNetwork:
 		# initialize hbias to be 1
 		self.hiddenValues = np.zeros(shape=(numHiddenUnits+1))
 		self.hiddenValues[0] = 1
+		self.errorRateHidden = np.zeros(shape=(numHiddenUnits))
+
 		self.outputValues = np.zeros(shape=(numOutputUnits))
+		self.errorRateOutput = np.zeros(shape=(numOutputUnits))
+
 		self.y = []
 		self.t = []
 
