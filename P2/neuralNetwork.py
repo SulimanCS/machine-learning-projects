@@ -170,6 +170,6 @@ class neuralNetwork:
 		for i in range (len(self.inputToHiddenWeights)):
 			self.hiddenValues[i+1] = sigmoid(self.inputToHiddenWeights[i] @ pixels)
 
-		for i in range(len(self.inputToHiddenWeights)):
+		for i in range(len(self.outputValues)):
 			self.outputValues[i] = sigmoid(self.hiddenToOutputWeights[i] @ self.hiddenValues)
 
