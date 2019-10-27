@@ -108,8 +108,10 @@ def sigmoid(x):
 class neuralNetwork:
 
 	inputToHiddenWeights = []
+	deltaInputToHiddenWeights = []
 
 	hiddenToOutputWeights = []
+	deltaHiddenToOutputWeights = []
 	hiddenValues = []
 	hiddenErrorRate = []
 
@@ -130,8 +132,13 @@ class neuralNetwork:
 		# to be between (-0.05, 0.05)
 		self.inputToHiddenWeights = \
 		np.random.rand(numHiddenUnits, lengthOfInput) * (0.05 - (-0.05)) - 0.05
+		self.deltaInputToHiddenWeights = \
+		np.zeros(shape=(numHiddenUnits, lengthOfInput))
+
 		self.hiddenToOutputWeights = \
 		np.random.rand(numOutputUnits, numHiddenUnits+1) * (0.05 - (-0.05)) - 0.05
+		self.deltaHiddenToOutputWeights = \
+		np.zeros(shape=(numOutputUnits, numHiddenUnits+1))
 
 		# initialize h1...hn
 		# initialize o1...0n
