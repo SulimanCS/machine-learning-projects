@@ -267,3 +267,9 @@ def writeAccuraciesToCSV(numHiddenUnits, percentageTrain, percentageTest):
 		for i in range(len(percentageTrain)):
 			write.writerow([i, percentageTrain[i], percentageTest[i]])
 
+def writeConfusionMatrixToCSV(numHiddenUnits, confusionMatrix):
+	filename = str(numHiddenUnits)+'_hidden_units_confusion_matrix.csv'
+	with open(filename, 'w') as write:
+		write = csv.writer(write)
+		write.writerows(confusionMatrix)
+
