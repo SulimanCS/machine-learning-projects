@@ -551,3 +551,9 @@ def experimentTwo():
 	print('Confusion matrix results - 1/2 training data')
 	print(pd.DataFrame(halfDataConfusionMatrix))
 
+def main():
+
+	experimentOne()
+	experimentTwo()
+
+main()
