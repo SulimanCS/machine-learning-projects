@@ -105,6 +105,12 @@ testPixels = np.array(testPixels)
 def sigmoid(x):
 	return 1/ (1 + np.exp(-x))
 
+outputUnits = 10
+inputLength = len(pixels[0])
+initInputHiddenWeights = np.random.rand(100, inputLength) * (0.05 - (-0.05)) - 0.05
+
+initHiddenOutputWeights = np.random.rand(outputUnits, 100+1) * (0.05 - (-0.05)) - 0.05
+
 # the neuralNetwork class that houses
 # the neural network structure and
 # specifications
@@ -133,13 +139,33 @@ class neuralNetwork:
 		# and randomize the initial weights
 		# of the input->hidden AND hidden->output
 		# to be between (-0.05, 0.05)
+
+		# self.inputToHiddenWeights = \
+		# np.random.rand(numHiddenUnits, lengthOfInput) * (0.05 - (-0.05)) - 0.05
 		self.inputToHiddenWeights = \
-		np.random.rand(numHiddenUnits, lengthOfInput) * (0.05 - (-0.05)) - 0.05
+		np.zeros(shape=(numHiddenUnits, lengthOfInput))
+
+		# for i in range(len(self.inputToHiddenWeights)):
+		# 	for j in range(len(self.inputToHiddenWeights[0])):
+		# 		self.inputToHiddenWeights[i][j] = initInputHiddenWeights[i][j]
+
+		np.copyto(self.inputToHiddenWeights, initInputHiddenWeights[:numHiddenUnits])
+
 		self.deltaInputToHiddenWeights = \
 		np.zeros(shape=(numHiddenUnits, lengthOfInput))
 
+		# self.hiddenToOutputWeights = \
+		# np.random.rand(numOutputUnits, numHiddenUnits+1) * (0.05 - (-0.05)) - 0.05
+
 		self.hiddenToOutputWeights = \
-		np.random.rand(numOutputUnits, numHiddenUnits+1) * (0.05 - (-0.05)) - 0.05
+		np.zeros(shape=(numOutputUnits, numHiddenUnits+1))
+
+		# for i in range(len(self.hiddenToOutputWeights)):
+		# 	for j in range(len(self.hiddenToOutputWeights[0])):
+		# 		self.hiddenToOutputWeights[i][j] = initHiddenOutputWeights[i][j]
+
+		np.copyto(self.hiddenToOutputWeights, initHiddenOutputWeights[:, :numHiddenUnits+1])
+
 		self.deltaHiddenToOutputWeights = \
 		np.zeros(shape=(numOutputUnits, numHiddenUnits+1))
 
