@@ -306,3 +306,20 @@ def experimentOne():
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
 
+	for epoch in range(51):
+
+		print('========================== Experiment One ==========================\n')
+		print('epoch #{}'.format(epoch))
+		for i in range(len(pixels)):
+
+			if i % 10000 == 0: print(i)
+
+			twentyUnitsNetwork.forwardPropagation(pixels[i])
+			twentyUnitsNetwork.backPropagation(pixels[i], labels[i])
+
+			fiftyUnitsNetwork.forwardPropagation(pixels[i])
+			fiftyUnitsNetwork.backPropagation(pixels[i], labels[i])
+
+			hundredUnitsNetwork.forwardPropagation(pixels[i])
+			hundredUnitsNetwork.backPropagation(pixels[i], labels[i])
+
