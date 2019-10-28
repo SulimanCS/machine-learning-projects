@@ -395,6 +395,15 @@ def experimentOne():
 	writeConfusionMatrixToCSV(50, fiftyUnitsConfusionMatrix)
 	writeConfusionMatrixToCSV(100, hundredUnitsConfusionMatrix)
 
+	print('Confusion matrix results - 20 hidden units')
+	print(pd.DataFrame(twentyUnitsConfusionMatrix))
+	print()
+	print('Confusion matrix results - 50 hidden units')
+	print(pd.DataFrame(fiftyUnitsConfusionMatrix))
+	print()
+	print('Confusion matrix results - 100 hidden units')
+	print(pd.DataFrame(hundredUnitsConfusionMatrix))
+
 def getHalfANDQuarterDataSet():
 
 	testEquality = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0\
@@ -536,4 +545,9 @@ def experimentTwo():
 	writeConfusionMatrixToCSV('quarter_data_100', quarterDataConfusionMatrix)
 	writeConfusionMatrixToCSV('half_data_100', halfDataConfusionMatrix)
 
+	print('Confusion matrix results - 1/4 training data')
+	print(pd.DataFrame(quarterDataConfusionMatrix))
+	print()
+	print('Confusion matrix results - 1/2 training data')
+	print(pd.DataFrame(halfDataConfusionMatrix))
 
