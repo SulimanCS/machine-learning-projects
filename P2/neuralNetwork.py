@@ -242,3 +242,19 @@ class neuralNetwork:
 			self.inputToHiddenWeights[i] = \
 			self.inputToHiddenWeights[i] + self.deltaInputToHiddenWeights[i]
 
+	def predictionResult(self, pixels):
+
+		HV = np.zeros(shape=(len(self.hiddenValues)))
+		HV[0] = 1
+		OV = {}
+		# print(len(HV))
+		# print(len(OV))
+		for i in range (len(self.inputToHiddenWeights)):
+			HV[i+1] = sigmoid(self.inputToHiddenWeights[i] @ pixels)
+
+		for i in range(len(self.outputValues)):
+			OV[i] = sigmoid(self.hiddenToOutputWeights[i] @ HV)
+		# return OV
+		# return label == max(OV, key=OV.get)
+		return max(OV, key=OV.get)
+
