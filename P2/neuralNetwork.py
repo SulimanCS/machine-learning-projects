@@ -460,4 +460,22 @@ def experimentTwo():
 		# testEquality = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0\
 		# , 6: 0, 7: 0, 8: 0, 9: 0}
 
+		for i in range(len(quarterDataIndexes)):
+
+			quarterDataHundredUnitsNetwork.forwardPropagation(pixels[quarterDataIndexes[i]])
+			quarterDataHundredUnitsNetwork.backPropagation(pixels[quarterDataIndexes[i]]\
+				, labels[quarterDataIndexes[i]])
+			# testEquality[labels[quarterDataIndexes[i]]] += 1
+
+		# print(testEquality)
+		# testEquality = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0\
+		# , 6: 0, 7: 0, 8: 0, 9: 0}
+
+		for i in range(len(halfDataIndexes)):
+
+			halfDataHundredUnitsNetwork.forwardPropagation(pixels[halfDataIndexes[i]])
+			halfDataHundredUnitsNetwork.backPropagation(pixels[halfDataIndexes[i]]\
+				, labels[halfDataIndexes[i]])
+			# testEquality[labels[halfDataIndexes[i]]] += 1
+
 
