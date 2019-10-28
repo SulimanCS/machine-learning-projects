@@ -365,3 +365,24 @@ def experimentOne():
 				fiftyUnitsConfusionMatrix[testLabels[i]][fiftyTestPrediction]+=1
 				hundredUnitsConfusionMatrix[testLabels[i]][hundredTestPrediction]+=1
 
+		twentyUnitsPercentageTrain = round((twentyCorrectTrain/totalTrain)*100, 2)
+		twentyUnitsPercentageTest = round((twentyCorrectTest/totalTest)*100, 2)
+		twentyUnitsTrainPercentages.append(twentyUnitsPercentageTrain)
+		twentyUnitsTestPercentages.append(twentyUnitsPercentageTest)
+
+		fiftyUnitsPercentageTrain = round((fiftyCorrectTrain/totalTrain)*100, 2)
+		fiftyUnitsPercentageTest = round((fiftyCorrectTest/totalTest)*100, 2)
+		fiftyUnitsTrainPercentages.append(fiftyUnitsPercentageTrain)
+		fiftyUnitsTestPercentages.append(fiftyUnitsPercentageTest)
+
+		hundredUnitsPercentageTrain = round((hundredCorrectTrain/totalTrain)*100, 2)
+		hundredUnitsPercentageTest = round((hundredCorrectTest/totalTest)*100, 2)
+		hundredUnitsTrainPercentages.append(hundredUnitsPercentageTrain)
+		hundredUnitsTestPercentages.append(hundredUnitsPercentageTest)
+
+		print('Results for 20: train%: {}, test%: {}'.format(\
+			twentyUnitsPercentageTrain, twentyUnitsPercentageTest))
+		print('Results for 50: train%: {}, test%: {}'.format(\
+			fiftyUnitsPercentageTrain, fiftyUnitsPercentageTest))
+		print('Results for 100: train%: {}, test%: {}'.format(\
+			hundredUnitsPercentageTrain, hundredUnitsPercentageTest))
