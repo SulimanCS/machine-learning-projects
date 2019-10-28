@@ -155,6 +155,8 @@ class neuralNetwork:
 
 		self.y = []
 		self.t = []
+		self.learningRate = 0.1
+		self.momentum = 0.9
 
 		# # REMOVE, JUST FOR TESTING
 		# self.inputToHiddenWeights = np.zeros(shape=(numHiddenUnits, lengthOfInput))
