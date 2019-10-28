@@ -386,3 +386,12 @@ def experimentOne():
 			fiftyUnitsPercentageTrain, fiftyUnitsPercentageTest))
 		print('Results for 100: train%: {}, test%: {}'.format(\
 			hundredUnitsPercentageTrain, hundredUnitsPercentageTest))
+
+	writeAccuraciesToCSV(20, twentyUnitsTrainPercentages, twentyUnitsTestPercentages)
+	writeAccuraciesToCSV(50, fiftyUnitsTrainPercentages, fiftyUnitsTestPercentages)
+	writeAccuraciesToCSV(100, hundredUnitsTrainPercentages, hundredUnitsTestPercentages)
+
+	writeConfusionMatrixToCSV(20, twentyUnitsConfusionMatrix)
+	writeConfusionMatrixToCSV(50, fiftyUnitsConfusionMatrix)
+	writeConfusionMatrixToCSV(100, hundredUnitsConfusionMatrix)
+
