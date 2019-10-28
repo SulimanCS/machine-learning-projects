@@ -226,17 +226,19 @@ class neuralNetwork:
 			# print('i is: {}'.format(i))
 			constans = self.learningRate * self.hiddenErrorRate[i]
 			# print(self.hiddenErrorRate)
-			for j in range(len(self.deltaInputToHiddenWeights[i])):
-				# print('j is: {}'.format(j))
-				# print(pixels[i])
-				# print(pixels[j])
-				self.deltaInputToHiddenWeights[i][j] = constans * pixels[j] \
-				+ self.momentum * self.deltaInputToHiddenWeights[i][j]
-				# print(self.deltaInputToHiddenWeights[i][j])
-				self.inputToHiddenWeights[i][j] += self.deltaInputToHiddenWeights[i][j]
-			# print('i is: {}'.format(self.deltaInputToHiddenWeights[i]))
-		# print(np.around(self.deltaInputToHiddenWeights, decimals=6))
-		# print(np.around(self.inputToHiddenWeights, decimals=2))
-		# print(self.deltaInputToHiddenWeights)
-		# print(self.inputToHiddenWeights)
+			# for j in range(len(self.deltaInputToHiddenWeights[i])):
+			# 	self.deltaInputToHiddenWeights[i][j] = constans * pixels[j] \
+			# 	+ self.momentum * self.deltaInputToHiddenWeights[i][j]
+			# 	self.inputToHiddenWeights[i][j] += self.deltaInputToHiddenWeights[i][j]
+			# print(type(self.deltaInputToHiddenWeights))
+			# print(type(constans))
+			# print(type(pixels))
+			# print(pixels)
+			# print(type(pixels[0]))
+			# print(type(self.momentum))
+			# exit(1)
+			self.deltaInputToHiddenWeights[i] = \
+			constans * pixels + self.momentum * self.deltaInputToHiddenWeights[i]
+			self.inputToHiddenWeights[i] = \
+			self.inputToHiddenWeights[i] + self.deltaInputToHiddenWeights[i]
 
