@@ -323,3 +323,45 @@ def experimentOne():
 			hundredUnitsNetwork.forwardPropagation(pixels[i])
 			hundredUnitsNetwork.backPropagation(pixels[i], labels[i])
 
+		twentyCorrectTrain = 0
+		twentyCorrectTest = 0
+
+		fiftyCorrectTrain= 0
+		fiftyCorrectTest = 0
+
+		hundredCorrectTrain= 0
+		hundredCorrectTest = 0
+
+		totalTrain = len(pixels)
+		totalTest = len(testPixels)
+
+		for i in range(len(pixels)):
+
+			twentyCorrectTrain += 1 if \
+			twentyUnitsNetwork.predictionResult(pixels[i]) == labels[i]\
+			else 0
+			fiftyCorrectTrain += 1 if \
+			fiftyUnitsNetwork.predictionResult(pixels[i]) == labels[i]\
+			else 0
+			hundredCorrectTrain += 1 if \
+			hundredUnitsNetwork.predictionResult(pixels[i]) == labels[i]\
+			else 0
+
+		for i in range(len(testPixels)):
+
+			twentyTestPrediction = \
+			twentyUnitsNetwork.predictionResult(testPixels[i])
+			fiftyTestPrediction = \
+			fiftyUnitsNetwork.predictionResult(testPixels[i])
+			hundredTestPrediction = \
+			hundredUnitsNetwork.predictionResult(testPixels[i])
+
+			twentyCorrectTest += 1 if twentyTestPrediction == testLabels[i] else 0
+			fiftyCorrectTest += 1 if fiftyTestPrediction == testLabels[i] else 0
+			hundredCorrectTest += 1 if hundredTestPrediction == testLabels[i] else 0
+
+			if epoch == 50:
+				twentyUnitsConfusionMatrix[testLabels[i]][twentyTestPrediction]+=1
+				fiftyUnitsConfusionMatrix[testLabels[i]][fiftyTestPrediction]+=1
+				hundredUnitsConfusionMatrix[testLabels[i]][hundredTestPrediction]+=1
+
