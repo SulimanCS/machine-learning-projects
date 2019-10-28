@@ -395,3 +395,33 @@ def experimentOne():
 	writeConfusionMatrixToCSV(50, fiftyUnitsConfusionMatrix)
 	writeConfusionMatrixToCSV(100, hundredUnitsConfusionMatrix)
 
+def getHalfANDQuarterDataSet():
+
+	testEquality = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0\
+	, 6: 0, 7: 0, 8: 0, 9: 0}
+	halfDataIndexes = []
+	halfData = (len(pixels)/10)/2
+
+	for i in range(len(pixels)):
+		if labels[i] in [num for num, occurrences in testEquality.items() if occurrences >= halfData]:
+			continue
+		testEquality[labels[i]] += 1
+		halfDataIndexes.append(i)
+	# print(testEquality)
+
+#=====================================================
+
+	testEquality = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0\
+	, 6: 0, 7: 0, 8: 0, 9: 0}
+	quarterDataIndexes = []
+	quarterData = (len(pixels)/10)/4
+
+	for i in range(len(pixels)):
+		if labels[i] in [num for num, occurrences in testEquality.items() if occurrences >= quarterData]:
+			continue
+		testEquality[labels[i]] += 1
+		quarterDataIndexes.append(i)
+	# print(testEquality)
+
+	return quarterDataIndexes, halfDataIndexes
+
