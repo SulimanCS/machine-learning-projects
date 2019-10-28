@@ -7,6 +7,9 @@ import math
 import random
 import pandas as pd
 
+# record when the program has started
+start_time = time.time()
+
 def setupTrainSet():
 
 	# get the training set path relative to the
