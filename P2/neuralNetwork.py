@@ -478,4 +478,56 @@ def experimentTwo():
 				, labels[halfDataIndexes[i]])
 			# testEquality[labels[halfDataIndexes[i]]] += 1
 
+		quarterCorrectTrain = 0
+		quarterCorrectTest = 0
+
+		halfCorrectTrain = 0
+		halfCorrectTest = 0
+
+		totalQuarter = len(quarterDataIndexes)
+		totalHalf = len(halfDataIndexes)
+		totalTest = len(testPixels)
+
+		for i in range(len(quarterDataIndexes)):
+
+			quarterCorrectTrain += 1 if \
+			quarterDataHundredUnitsNetwork.predictionResult(pixels[quarterDataIndexes[i]]) == \
+			labels[quarterDataIndexes[i]] else 0
+
+		for i in range(len(halfDataIndexes)):
+
+			halfCorrectTrain += 1 if \
+			halfDataHundredUnitsNetwork.predictionResult(pixels[halfDataIndexes[i]]) == \
+			labels[halfDataIndexes[i]] else 0
+
+		for i in range(len(testPixels)):
+
+			quarterTestPrediction = \
+			quarterDataHundredUnitsNetwork.predictionResult(testPixels[i])
+
+			halfTestPrediction = \
+			halfDataHundredUnitsNetwork.predictionResult(testPixels[i])
+
+			quarterCorrectTest += 1 if quarterTestPrediction == testLabels[i] else 0
+			halfCorrectTest += 1 if halfTestPrediction == testLabels[i] else 0
+
+			if epoch == 50:
+				quarterDataConfusionMatrix[testLabels[i]][quarterTestPrediction]+=1
+				halfDataConfusionMatrix[testLabels[i]][halfTestPrediction]+=1
+
+		quarterDataPercentageTrain = round((quarterCorrectTrain/totalQuarter)*100, 2)
+		quarterDataPercentageTest = round((quarterCorrectTest/totalTest)*100, 2)
+		quarterDataTrainPercentages.append(quarterDataPercentageTrain)
+		quarterDataTestPercentages.append(quarterDataPercentageTest)
+
+		halfDataPercentageTrain = round((halfCorrectTrain/totalHalf)*100, 2)
+		halfDataPercentageTest = round((halfCorrectTest/totalTest)*100, 2)
+		halfDataTrainPercentages.append(halfDataPercentageTrain)
+		halfDataTestPercentages.append(halfDataPercentageTest)
+
+		print('Results for 1/4 data: train%: {}, test%: {}'.format(\
+			quarterDataPercentageTrain, quarterDataPercentageTest))
+		print('Results for 1/2 data: train%: {}, test%: {}'.format(\
+			halfDataPercentageTrain, halfDataPercentageTest))
+
 
