@@ -107,8 +107,13 @@ def sigmoid(x):
 
 outputUnits = 10
 inputLength = len(pixels[0])
-initInputHiddenWeights = np.random.rand(100, inputLength) * (0.05 - (-0.05)) - 0.05
 
+# setting the initial weights to be global so that
+# all netowrks have the same starting point, this will
+# yeild more consistent results since randomized weights
+# for different neural networks in the same experiment
+# can cause inconsistency and illogical results
+initInputHiddenWeights = np.random.rand(100, inputLength) * (0.05 - (-0.05)) - 0.05
 initHiddenOutputWeights = np.random.rand(outputUnits, 100+1) * (0.05 - (-0.05)) - 0.05
 
 # the neuralNetwork class that houses
@@ -136,7 +141,7 @@ class neuralNetwork:
 	def __init__(self, numHiddenUnits, numOutputUnits, lengthOfInput):
 
 		# initialize the lists to be numpy arrays
-		# and randomize the initial weights
+		# and copy the randomized initial weights
 		# of the input->hidden AND hidden->output
 		# to be between (-0.05, 0.05)
 
@@ -184,7 +189,9 @@ class neuralNetwork:
 		self.learningRate = 0.1
 		self.momentum = 0.9
 
-
+	# the forward propagation function populates the
+	# hidden and output values of its respective
+	# neural network
 	def forwardPropagation(self, pixels):
 
 		for i in range (len(self.inputToHiddenWeights)):
@@ -193,6 +200,10 @@ class neuralNetwork:
 		for i in range(len(self.outputValues)):
 			self.outputValues[i] = sigmoid(self.hiddenToOutputWeights[i] @ self.hiddenValues)
 
+	# the back propagation function populates the
+	# hidden and output error rates and the delte
+	# weights input->hidden, hidden output
+	# of its respective neural network
 	def backPropagation(self, pixels, label):
 
 		for i in range(len(self.outputErrorRate)):
@@ -230,6 +241,9 @@ class neuralNetwork:
 			self.inputToHiddenWeights[i] = \
 			self.inputToHiddenWeights[i] + self.deltaInputToHiddenWeights[i]
 
+	# the prediction result function returns
+	# the neural network's prediction given
+	# the input
 	def predictionResult(self, pixels):
 
 		HV = np.zeros(shape=(len(self.hiddenValues)))
@@ -244,6 +258,8 @@ class neuralNetwork:
 
 		return max(OV, key=OV.get)
 
+# an auxiliary function that writes
+# the accuracy data to an external CSV file
 def writeAccuraciesToCSV(numHiddenUnits, percentageTrain, percentageTest):
 
 	filename = str(numHiddenUnits)+'_hidden_units_accuracy.csv'
@@ -253,13 +269,27 @@ def writeAccuraciesToCSV(numHiddenUnits, percentageTrain, percentageTest):
 		for i in range(len(percentageTrain)):
 			write.writerow([i, percentageTrain[i], percentageTest[i]])
 
+# an auxiliary function that writes the
+# confusion matrix data to an external CSV file
 def writeConfusionMatrixToCSV(numHiddenUnits, confusionMatrix):
 	filename = str(numHiddenUnits)+'_hidden_units_confusion_matrix.csv'
 	with open(filename, 'w') as write:
 		write = csv.writer(write)
 		write.writerows(confusionMatrix)
 
+# experiment one function that sets up
+# three different neural networks with a
+# fixed learning rate (0.1)
+# and momentum (0.9), but a different
+# hidden unit length for every neural network
+
+# neural network 1: 20 hidden units
+# neural network 2: 50 hidden units
+# neural network 3: 100 hidden units
 def experimentOne():
+
+	# setup the initial variables needed for the
+	# networks to run
 
 	outputUnits = 10
 	inputLength = len(pixels[0])
@@ -291,7 +321,7 @@ def experimentOne():
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-
+	# train the three networks for 51 epochs
 	for epoch in range(51):
 
 		print('========================== Experiment One ==========================\n')
@@ -309,6 +339,7 @@ def experimentOne():
 			hundredUnitsNetwork.forwardPropagation(pixels[i])
 			hundredUnitsNetwork.backPropagation(pixels[i], labels[i])
 
+		# setup the necessary values to compute accuracy
 		twentyCorrectTrain = 0
 		twentyCorrectTest = 0
 
@@ -321,6 +352,7 @@ def experimentOne():
 		totalTrain = len(pixels)
 		totalTest = len(testPixels)
 
+		# compute the accuracy on the training set
 		for i in range(len(pixels)):
 
 			twentyCorrectTrain += 1 if \
@@ -333,6 +365,7 @@ def experimentOne():
 			hundredUnitsNetwork.predictionResult(pixels[i]) == labels[i]\
 			else 0
 
+		# compute the accuracy on the testing set
 		for i in range(len(testPixels)):
 
 			twentyTestPrediction = \
@@ -346,11 +379,13 @@ def experimentOne():
 			fiftyCorrectTest += 1 if fiftyTestPrediction == testLabels[i] else 0
 			hundredCorrectTest += 1 if hundredTestPrediction == testLabels[i] else 0
 
+			# compute the confusion matrix on epoch 50
 			if epoch == 50:
 				twentyUnitsConfusionMatrix[testLabels[i]][twentyTestPrediction]+=1
 				fiftyUnitsConfusionMatrix[testLabels[i]][fiftyTestPrediction]+=1
 				hundredUnitsConfusionMatrix[testLabels[i]][hundredTestPrediction]+=1
 
+		# store the computed accuracy in the accuracies list for graphing
 		twentyUnitsPercentageTrain = round((twentyCorrectTrain/totalTrain)*100, 2)
 		twentyUnitsPercentageTest = round((twentyCorrectTest/totalTest)*100, 2)
 		twentyUnitsTrainPercentages.append(twentyUnitsPercentageTrain)
@@ -366,6 +401,7 @@ def experimentOne():
 		hundredUnitsTrainPercentages.append(hundredUnitsPercentageTrain)
 		hundredUnitsTestPercentages.append(hundredUnitsPercentageTest)
 
+		# display the accuracy results of the epoch to std output
 		print('Results for 20: train%: {}, test%: {}'.format(\
 			twentyUnitsPercentageTrain, twentyUnitsPercentageTest))
 		print('Results for 50: train%: {}, test%: {}'.format(\
@@ -373,14 +409,17 @@ def experimentOne():
 		print('Results for 100: train%: {}, test%: {}'.format(\
 			hundredUnitsPercentageTrain, hundredUnitsPercentageTest))
 
+	# write the accuracies to an external CSV file
 	writeAccuraciesToCSV(20, twentyUnitsTrainPercentages, twentyUnitsTestPercentages)
 	writeAccuraciesToCSV(50, fiftyUnitsTrainPercentages, fiftyUnitsTestPercentages)
 	writeAccuraciesToCSV(100, hundredUnitsTrainPercentages, hundredUnitsTestPercentages)
 
+	# write the confusion matrices to an external CSV file
 	writeConfusionMatrixToCSV(20, twentyUnitsConfusionMatrix)
 	writeConfusionMatrixToCSV(50, fiftyUnitsConfusionMatrix)
 	writeConfusionMatrixToCSV(100, hundredUnitsConfusionMatrix)
 
+	# print the confusion matrices to std output
 	print('Confusion matrix results - 20 hidden units')
 	print(pd.DataFrame(twentyUnitsConfusionMatrix))
 	print()
@@ -390,14 +429,25 @@ def experimentOne():
 	print('Confusion matrix results - 100 hidden units')
 	print(pd.DataFrame(hundredUnitsConfusionMatrix))
 
+# an auxiliary function that stores
+# the indices for half/quarter
+# the training datasets with respect
+# to the sample size being distributed
+# equally across the 10 digits
 def getHalfANDQuarterDataSet():
+	# half the dataset section
 
+	# testEquality dictionary ensures that
+	# all digits are picked equally
 	testEquality = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0\
 	, 6: 0, 7: 0, 8: 0, 9: 0}
 	halfDataIndexes = []
+	# get the number splits the data equally in half
+	# 60000/10 => /2 = 3000 sample per digit
 	halfData = (len(pixels)/10)/2
 
 	for i in range(len(pixels)):
+		# if the digit has over 3000 samples, then don't store its index
 		if labels[i] in [num for num, occurrences in testEquality.items() if occurrences >= halfData]:
 			continue
 		testEquality[labels[i]] += 1
@@ -405,13 +455,19 @@ def getHalfANDQuarterDataSet():
 	# print(testEquality)
 
 #=====================================================
+	# quarter the dataset section
 
+	# testEquality dictionary ensures that
+	# all digits are picked equally
 	testEquality = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0\
 	, 6: 0, 7: 0, 8: 0, 9: 0}
 	quarterDataIndexes = []
+	# get the number splits the data equally in half
+	# 60000/10 => /2 = 1500 sample per digit
 	quarterData = (len(pixels)/10)/4
 
 	for i in range(len(pixels)):
+		# if the digit has over 1500 samples, then don't store its index
 		if labels[i] in [num for num, occurrences in testEquality.items() if occurrences >= quarterData]:
 			continue
 		testEquality[labels[i]] += 1
@@ -420,8 +476,19 @@ def getHalfANDQuarterDataSet():
 
 	return quarterDataIndexes, halfDataIndexes
 
+# experiment function function that sets up
+# two different neural networks with a
+# fixed learning rate (0.1)
+# and momentum (0.9), but a different
+# training dataset length
+# for every neural network
+
+# neural network 1: 1/4 training samples
+# neural network 2: 1/2 training samples
 def experimentTwo():
 
+	# setup the initial variables needed for the
+	# networks to run
 
 	quarterDataIndexes, halfDataIndexes = getHalfANDQuarterDataSet()
 	# print(len(quarterDataIndexes))
@@ -448,6 +515,7 @@ def experimentTwo():
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
+	# train the three networks for 51 epochs
 	for epoch in range(51):
 
 		print('========================== Experiment Two ==========================\n')
@@ -473,6 +541,7 @@ def experimentTwo():
 				, labels[halfDataIndexes[i]])
 			# testEquality[labels[halfDataIndexes[i]]] += 1
 
+		# setup the necessary values to compute accuracy
 		quarterCorrectTrain = 0
 		quarterCorrectTest = 0
 
@@ -483,12 +552,14 @@ def experimentTwo():
 		totalHalf = len(halfDataIndexes)
 		totalTest = len(testPixels)
 
+		# compute the accuracy on 1/4 the training set
 		for i in range(len(quarterDataIndexes)):
 
 			quarterCorrectTrain += 1 if \
 			quarterDataHundredUnitsNetwork.predictionResult(pixels[quarterDataIndexes[i]]) == \
 			labels[quarterDataIndexes[i]] else 0
 
+		# compute the accuracy on 1/2 the training set
 		for i in range(len(halfDataIndexes)):
 
 			halfCorrectTrain += 1 if \
@@ -506,10 +577,12 @@ def experimentTwo():
 			quarterCorrectTest += 1 if quarterTestPrediction == testLabels[i] else 0
 			halfCorrectTest += 1 if halfTestPrediction == testLabels[i] else 0
 
+			# compute the accuracy on the training set
 			if epoch == 50:
 				quarterDataConfusionMatrix[testLabels[i]][quarterTestPrediction]+=1
 				halfDataConfusionMatrix[testLabels[i]][halfTestPrediction]+=1
 
+		# store the computed accuracy in the accuracies list for graphing
 		quarterDataPercentageTrain = round((quarterCorrectTrain/totalQuarter)*100, 2)
 		quarterDataPercentageTest = round((quarterCorrectTest/totalTest)*100, 2)
 		quarterDataTrainPercentages.append(quarterDataPercentageTrain)
@@ -520,27 +593,34 @@ def experimentTwo():
 		halfDataTrainPercentages.append(halfDataPercentageTrain)
 		halfDataTestPercentages.append(halfDataPercentageTest)
 
+		# display the accuracy results of the epoch to std output
 		print('Results for 1/4 data: train%: {}, test%: {}'.format(\
 			quarterDataPercentageTrain, quarterDataPercentageTest))
 		print('Results for 1/2 data: train%: {}, test%: {}'.format(\
 			halfDataPercentageTrain, halfDataPercentageTest))
 
+	# write the accuracies to an external CSV file
 	writeAccuraciesToCSV('quarter_data_100', quarterDataTrainPercentages, quarterDataTestPercentages)
 	writeAccuraciesToCSV('half_data_100', halfDataTrainPercentages, halfDataTestPercentages)
 
+	# write the confusion matrices to an external CSV file
 	writeConfusionMatrixToCSV('quarter_data_100', quarterDataConfusionMatrix)
 	writeConfusionMatrixToCSV('half_data_100', halfDataConfusionMatrix)
 
+	# print the confusion matrices to std output
 	print('Confusion matrix results - 1/4 training data')
 	print(pd.DataFrame(quarterDataConfusionMatrix))
 	print()
 	print('Confusion matrix results - 1/2 training data')
 	print(pd.DataFrame(halfDataConfusionMatrix))
 
+# main calls both of the experiments sequentially
 def main():
 
 	experimentOne()
 	experimentTwo()
 
 main()
+
+# print total execution time
 print("--- %s seconds ---" % (time.time() - start_time))
