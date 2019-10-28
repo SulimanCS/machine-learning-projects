@@ -158,24 +158,6 @@ class neuralNetwork:
 		self.learningRate = 0.1
 		self.momentum = 0.9
 
-		# # REMOVE, JUST FOR TESTING
-		# self.inputToHiddenWeights = np.zeros(shape=(numHiddenUnits, lengthOfInput))
-		# self.hiddenToOutputWeights = np.zeros(shape=(numOutputUnits, numHiddenUnits+1))
-		# self.inputToHiddenWeights[0][0] = -0.4
-		# self.inputToHiddenWeights[0][1] = 0.2
-		# self.inputToHiddenWeights[0][2] = 0.1
-
-		# self.inputToHiddenWeights[1][0] = -0.2
-		# self.inputToHiddenWeights[1][1] = 0.4
-		# self.inputToHiddenWeights[1][2] = -0.1
-
-		# self.hiddenToOutputWeights[0][0] = 0.1
-		# self.hiddenToOutputWeights[0][1] = -0.2
-		# self.hiddenToOutputWeights[0][2] = 0.1
-
-		# self.hiddenToOutputWeights[1][0] = 0.4
-		# self.hiddenToOutputWeights[1][1] = -0.1
-		# self.hiddenToOutputWeights[1][2] = 0.1
 
 	def forwardPropagation(self, pixels):
 
@@ -187,8 +169,6 @@ class neuralNetwork:
 
 	def backPropagation(self, pixels, label):
 
-		# print(self.hiddenValues)
-		# print(self.outputValues)
 		for i in range(len(self.outputErrorRate)):
 			if label == i:
 				self.outputErrorRate[i] = self.outputValues[i] * (1 - self.outputValues[i]) \
@@ -197,14 +177,9 @@ class neuralNetwork:
 				self.outputErrorRate[i] = self.outputValues[i] * (1 - self.outputValues[i]) \
 				* (0.1 - self.outputValues[i])
 
-		# print(self.outputErrorRate)
-
 		for i in range(len(self.hiddenErrorRate)):
 			self.hiddenErrorRate[i] = self.hiddenValues[i+1] * (1 - self.hiddenValues[i+1]) \
 			* (self.hiddenToOutputWeights[:,i+1] @ self.outputErrorRate)
-			# print(self.hiddenToOutputWeights[:,i+1], self.outputErrorRate)
-			# print(self.hiddenToOutputWeights[:,i+1] @ self.outputErrorRate)
-		# print(self.hiddenErrorRate)
 
 		for i in range(len(self.deltaHiddenToOutputWeights)):
 			constans = self.learningRate * self.outputErrorRate[i]
@@ -217,26 +192,13 @@ class neuralNetwork:
 			self.hiddenToOutputWeights[i] \
 			= self.hiddenToOutputWeights[i] + self.deltaHiddenToOutputWeights[i]
 
-		# print(self.deltaHiddenToOutputWeights)
-		# print(self.hiddenToOutputWeights)
-		# print(self.hiddenValues)
-		# print(len(self.deltaInputToHiddenWeights))
-		# print(len(self.deltaInputToHiddenWeights[0]))
 		for i in range(len(self.deltaInputToHiddenWeights)):
-			# print('i is: {}'.format(i))
 			constans = self.learningRate * self.hiddenErrorRate[i]
-			# print(self.hiddenErrorRate)
 			# for j in range(len(self.deltaInputToHiddenWeights[i])):
 			# 	self.deltaInputToHiddenWeights[i][j] = constans * pixels[j] \
 			# 	+ self.momentum * self.deltaInputToHiddenWeights[i][j]
 			# 	self.inputToHiddenWeights[i][j] += self.deltaInputToHiddenWeights[i][j]
-			# print(type(self.deltaInputToHiddenWeights))
-			# print(type(constans))
-			# print(type(pixels))
-			# print(pixels)
-			# print(type(pixels[0]))
-			# print(type(self.momentum))
-			# exit(1)
+
 			self.deltaInputToHiddenWeights[i] = \
 			constans * pixels + self.momentum * self.deltaInputToHiddenWeights[i]
 			self.inputToHiddenWeights[i] = \
@@ -247,15 +209,13 @@ class neuralNetwork:
 		HV = np.zeros(shape=(len(self.hiddenValues)))
 		HV[0] = 1
 		OV = {}
-		# print(len(HV))
-		# print(len(OV))
+
 		for i in range (len(self.inputToHiddenWeights)):
 			HV[i+1] = sigmoid(self.inputToHiddenWeights[i] @ pixels)
 
 		for i in range(len(self.outputValues)):
 			OV[i] = sigmoid(self.hiddenToOutputWeights[i] @ HV)
-		# return OV
-		# return label == max(OV, key=OV.get)
+
 		return max(OV, key=OV.get)
 
 def writeAccuraciesToCSV(numHiddenUnits, percentageTrain, percentageTest):
