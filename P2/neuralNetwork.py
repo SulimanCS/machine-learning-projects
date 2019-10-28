@@ -425,3 +425,32 @@ def getHalfANDQuarterDataSet():
 
 	return quarterDataIndexes, halfDataIndexes
 
+def experimentTwo():
+
+
+	quarterDataIndexes, halfDataIndexes = getHalfANDQuarterDataSet()
+	# print(len(quarterDataIndexes))
+	# print(len(halfDataIndexes))
+
+	outputUnits = 10
+	inputLength = len(pixels[0])
+
+	quarterDataHundredUnitsNetwork = neuralNetwork(100, outputUnits, inputLength)
+	quarterDataTrainPercentages = []
+	quarterDataTestPercentages = []
+	quarterDataConfusionMatrix = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+	halfDataHundredUnitsNetwork = neuralNetwork(100, outputUnits, inputLength)
+	halfDataTrainPercentages = []
+	halfDataTestPercentages = []
+	halfDataConfusionMatrix = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+
