@@ -557,3 +557,4 @@ def main():
 	experimentTwo()
 
 main()
+print("--- %s seconds ---" % (time.time() - start_time))
