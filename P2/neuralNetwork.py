@@ -530,4 +530,10 @@ def experimentTwo():
 		print('Results for 1/2 data: train%: {}, test%: {}'.format(\
 			halfDataPercentageTrain, halfDataPercentageTest))
 
+	writeAccuraciesToCSV('quarter_data_100', quarterDataTrainPercentages, quarterDataTestPercentages)
+	writeAccuraciesToCSV('half_data_100', halfDataTrainPercentages, halfDataTestPercentages)
+
+	writeConfusionMatrixToCSV('quarter_data_100', quarterDataConfusionMatrix)
+	writeConfusionMatrixToCSV('half_data_100', halfDataConfusionMatrix)
+
 
