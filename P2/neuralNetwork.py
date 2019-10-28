@@ -258,3 +258,12 @@ class neuralNetwork:
 		# return label == max(OV, key=OV.get)
 		return max(OV, key=OV.get)
 
+def writeAccuraciesToCSV(numHiddenUnits, percentageTrain, percentageTest):
+
+	filename = str(numHiddenUnits)+'_hidden_units_accuracy.csv'
+	with open(filename, 'w') as write:
+		write = csv.writer(write)
+		write.writerow(['epoch', '% train set', '% test set'])
+		for i in range(len(percentageTrain)):
+			write.writerow([i, percentageTrain[i], percentageTest[i]])
+
