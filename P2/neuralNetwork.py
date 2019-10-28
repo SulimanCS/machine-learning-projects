@@ -103,7 +103,7 @@ testLabels = np.array(testLabels)
 testPixels = np.array(testPixels)
 
 def sigmoid(x):
-	return 1/ (1 + math.exp(-x))
+	return 1/ (1 + np.exp(-x))
 
 # the neuralNetwork class that houses
 # the neural network structure and
