@@ -208,10 +208,15 @@ class neuralNetwork:
 
 		for i in range(len(self.deltaHiddenToOutputWeights)):
 			constans = self.learningRate * self.outputErrorRate[i]
-			for j in range(len(self.deltaHiddenToOutputWeights[i])):
-				self.deltaHiddenToOutputWeights[i][j] = constans * self.hiddenValues[j] \
-				+ self.momentum * self.deltaHiddenToOutputWeights[i][j]
-				self.hiddenToOutputWeights[i][j] += self.deltaHiddenToOutputWeights[i][j]
+			# for j in range(len(self.deltaHiddenToOutputWeights[i])):
+			# 	self.deltaHiddenToOutputWeights[i][j] = constans * self.hiddenValues[j] \
+			# 	+ self.momentum * self.deltaHiddenToOutputWeights[i][j]
+			# 	self.hiddenToOutputWeights[i][j] += self.deltaHiddenToOutputWeights[i][j]
+			self.deltaHiddenToOutputWeights[i] = \
+			constans * self.hiddenValues + self.momentum * self.deltaHiddenToOutputWeights[i]
+			self.hiddenToOutputWeights[i] \
+			= self.hiddenToOutputWeights[i] + self.deltaHiddenToOutputWeights[i]
+
 		# print(self.deltaHiddenToOutputWeights)
 		# print(self.hiddenToOutputWeights)
 		# print(self.hiddenValues)
