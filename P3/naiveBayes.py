@@ -7,14 +7,18 @@ import numpy as np
 class naiveBayes:
 
 	numClasses = None
+	numAttributes = None
 	uniqueClasses = None
 
 	# when constructing the class,
 	# assign the number of unique classes
 	# that the training set has
-	def __init__(self, numClasses, classes):
+	def __init__(self, numClasses, numAttributes, classes):
+
 		self.numClasses = numClasses
+		self.numAttributes = numAttributes
 		self.uniqueClasses = {}
+
 		for i in classes:
 			self.uniqueClasses[int(i)] = {}
 
