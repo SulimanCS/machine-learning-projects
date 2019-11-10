@@ -29,3 +29,22 @@ def loadSet(filename):
 	# are separated by a whitespace
 	return np.loadtxt(filename, delimiter=None, dtype=np.float64)
 
+def main(trainSetFilename, testSetFilename):
+
+	# load training & testing sets
+	trainSet, testSet = loadSet(trainSetFilename), loadSet(testSetFilename)
+
+	# get how many attributes there are in the given train set
+	numAttributes = len(trainSet[0]) - 1
+
+	# get the last column (class values) from the train set
+	lastColumn = trainSet[:, len(trainSet[0])-1]
+
+	# get only the unique values (eliminate duplicates)
+	classes = set(lastColumn)
+
+	# get how many classes there are for the given dataset
+	# and create a naive bayes class with that number of classes,
+	# classes, and number of attributes in the given set
+	NB = naiveBayes(len(classes), numAttributes, classes)
+
