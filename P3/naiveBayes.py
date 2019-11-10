@@ -18,3 +18,10 @@ class naiveBayes:
 		for i in classes:
 			self.uniqueClasses[int(i)] = {}
 
+# loads the dataset file elements as floats into a 2D numpy array
+def loadSet(filename):
+
+	# for our experiment, all the datasets attributes
+	# are separated by a whitespace
+	return np.loadtxt(filename, delimiter=None, dtype=np.float64)
+
