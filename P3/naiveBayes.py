@@ -172,3 +172,7 @@ def main(trainSetFilename, testSetFilename):
 	# classes, and number of attributes in the given set
 	NB = naiveBayes(len(classes), numAttributes, classes)
 
+	NB.train(trainSet)
+	NB.trainingOutput()
+	NB.classify(testSet)
+
