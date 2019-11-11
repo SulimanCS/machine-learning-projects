@@ -98,6 +98,9 @@ class naiveBayes:
 					# store all PDF values in a list
 					results.append(PDF)
 
+				# add P(class) before computing all values via log addition
+				results.append(self.uniqueClasses[j]['percentage'])
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
