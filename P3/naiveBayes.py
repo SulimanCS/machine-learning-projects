@@ -112,6 +112,8 @@ class naiveBayes:
 				# store and link the final prediction value to its respective class
 				predictions[j] = finalPredictionValue
 
+			predictionMax = max(predictions, key=predictions.get)
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
