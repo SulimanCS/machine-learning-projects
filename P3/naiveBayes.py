@@ -116,6 +116,31 @@ class naiveBayes:
 
 			keys = [k for k, v in predictions.items() if v == predictions[predictionMax]]
 
+			# accuracy. This is defined as follows:
+			# 1) If there were no ties in your classification result,
+			# and the predicted class is correct, the accuracy is 1.
+
+			# 2) If there were no ties in your classification result,
+			# and the predicted class is incorrect, the accuracy is 0.
+
+			# 3) If there were ties in your classification result,
+			# and the correct class was one of the classes that tied for best,
+			# the accuracy is 1 divided by the number of classes that tied for best.
+
+			# 4) If there were ties in your classification result,
+			# and the correct class was NOT one of the classes that tied for best, the accuracy is 0.
+			currentAccuracy = None
+			if len(keys) > 1:
+				if label in keys:
+					accuracy += 1/len(keys)
+					currentAccuracy = 1/len(keys)
+			else:
+				if label == predictionMax:
+					accuracy += 1
+					currentAccuracy = 1
+				else:
+					currentAccuracy = 0
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
