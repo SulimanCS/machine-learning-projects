@@ -1,3 +1,9 @@
+# ==============================================
+# Name: Suliman Alsarraf
+# Assignment: Project 3
+# Class: CS445 Machine Learning
+# ==============================================
+
 import sys
 import numpy as np
 
