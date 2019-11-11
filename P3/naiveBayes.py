@@ -114,6 +114,8 @@ class naiveBayes:
 
 			predictionMax = max(predictions, key=predictions.get)
 
+			keys = [k for k, v in predictions.items() if v == predictions[predictionMax]]
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
