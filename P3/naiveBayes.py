@@ -65,6 +65,19 @@ class naiveBayes:
 				print('Class %d, attribute %d, mean = %.2f, std = %.2f' \
 					% (i, j+1, self.uniqueClasses[i]['mean'][j], self.uniqueClasses[i]['std'][j]))
 
+	# calculates accuracy based on the training
+	# and displays information about every object
+	# in the test file, alongside the total
+	# classification accuracy
+	def classify(self, testSet):
+
+		accuracy = 0
+		total = len(testSet)
+
+		for i in testSet:
+			predictions = {}
+			row = i[:-1]
+			label = i[-1]
 
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
