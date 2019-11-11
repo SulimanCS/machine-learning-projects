@@ -101,6 +101,17 @@ class naiveBayes:
 				# add P(class) before computing all values via log addition
 				results.append(self.uniqueClasses[j]['percentage'])
 
+				# compute the final prediction value of the current class,
+				# for the current entry in the test dataset
+				finalPredictionValue = 0
+				for x in results:
+					if x == 0:
+						continue
+					finalPredictionValue += np.log(x)
+
+				# store and link the final prediction value to its respective class
+				predictions[j] = finalPredictionValue
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
