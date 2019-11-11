@@ -57,6 +57,15 @@ class naiveBayes:
 				'percentage': len(row)/len(trainSet)
 			}
 
+	# displays the mean and std values of every attribute in every class
+	def trainingOutput(self):
+
+		for i in self.uniqueClasses:
+			for j in range(len(self.uniqueClasses[i]['mean'])):
+				print('Class %d, attribute %d, mean = %.2f, std = %.2f' \
+					% (i, j+1, self.uniqueClasses[i]['mean'][j], self.uniqueClasses[i]['std'][j]))
+
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
