@@ -74,10 +74,29 @@ class naiveBayes:
 		accuracy = 0
 		total = len(testSet)
 
-		for i in testSet:
+		# main loop that goes over every row of the test set
+		for objectID, i in enumerate(testSet, start=1):
 			predictions = {}
+			# fetch the row without the true class column
 			row = i[:-1]
+			# fetch the true class type
 			label = i[-1]
+
+			# go over all unique classes of the set,
+			# compute PDF values for all attributes
+			for j in self.uniqueClasses.keys():
+				results = []
+
+				# loop over every attribute value in a given entry
+				# in the test data, compute PDF for every column
+				for z, k in enumerate(row):
+					curMean = self.uniqueClasses[j]['mean'][z]
+					curStd = self.uniqueClasses[j]['std'][z]
+					PDF = 1 / (np.sqrt(2*np.pi) * curStd) \
+					* np.exp((-1*np.square(k - curMean)) / (2*np.square(curStd)))
+
+					# store all PDF values in a list
+					results.append(PDF)
 
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
