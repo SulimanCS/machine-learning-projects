@@ -141,6 +141,11 @@ class naiveBayes:
 				else:
 					currentAccuracy = 0
 
+			print('ID=%5d, predicted=%3d, probability = %.4f, true=%3d, accuracy=%4.2f' \
+				% (objectID, keys[0], predictions[predictionMax], label, currentAccuracy))
+
+		print('classification accuracy=%6.4f' % (accuracy/total))
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
