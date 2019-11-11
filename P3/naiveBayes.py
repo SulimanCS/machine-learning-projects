@@ -176,3 +176,13 @@ def main(trainSetFilename, testSetFilename):
 	NB.trainingOutput()
 	NB.classify(testSet)
 
+if __name__ == '__main__':
+
+	if len(sys.argv) < 3:
+		print('please provide the train and test datasets as a command line argument')
+	else:
+
+		trainSetFilename = sys.argv[1]
+		testSetFilename = sys.argv[2]
+
+		main(trainSetFilename, testSetFilename)
