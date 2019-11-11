@@ -33,15 +33,15 @@ class naiveBayes:
 			seperator = np.squeeze(trainSet[:, -1]) == i
 
 			# get the actual row values of the loop's class type
-			row = trainSet[seperator, :]
+			rows = trainSet[seperator, :]
 
 			# remove the last column (since it is the class value column)
-			row = row[:,:-1]
+			rows = rows[:,:-1]
 
 			# store the mean and standard deviation
 			# of all columns
-			mean = row.mean(axis=0)
-			std = row.std(axis=0)
+			mean = rows.mean(axis=0)
+			std = rows.std(axis=0)
 
 			# if there is any value in the std array
 			# where it is less than 0.01, then
@@ -54,7 +54,7 @@ class naiveBayes:
 			self.uniqueClasses[i] = {
 				'mean': mean,
 				'std': std,
-				'percentage': len(row)/len(trainSet)
+				'percentage': len(rows)/len(trainSet)
 			}
 
 	# displays the mean and std values of every attribute in every class
