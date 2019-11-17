@@ -12,3 +12,5 @@ will execute techniques such as forward and back propagation to update the weigh
 After training the neural networks throughout 51 epochs each, accuracy percentages will be
 computed by presenting the same training dataset and a test dataset to the networks in-order to
 computed prediction correctness over the dataset for the different networks.
+
+**Project 3:** This project aims to train a supervised Machine Learning Naive Bayes classifier to predict if a given set of features belong to one of a set of classes P(feature | Class). Due to the simplicity of Naive Bayes classifiers, the accuracy of Naive Bayes classifiers is notably lower in comparison to previous projects.
