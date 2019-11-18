@@ -12,6 +12,12 @@ class kMeansClustering:
 	# assign the number of clusters K
 	def __init__(self, k): self.k = k
 
+	# picks k random samples from the supplied training set
+	# and returns their indices
+	def pickRandom(self, trainSet):
+
+		return np.random.randint(len(trainSet), size=self.k)
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
