@@ -18,6 +18,28 @@ class kMeansClustering:
 
 		return np.random.randint(len(trainSet), size=self.k)
 
+	def train(self, trainSet):
+
+		# get k random samples indices
+		indices = self.pickRandom(trainSet)
+
+		# copy the actual sample rows from the training set
+		samples = np.copy(trainSet[indices])
+
+		# store every row excluding the last column (class column)
+		samples = samples[:, :-1]
+
+		# store the last column of every row (class column)
+		samplesLabels = samples[:, -1]
+
+		# store every row excluding the last column (class column)
+		rows = trainSet[:, :-1]
+
+		# store the last column of every row (class column)
+		labels = trainSet[:, -1]
+
+		numRuns = 5
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
