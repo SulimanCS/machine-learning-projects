@@ -125,6 +125,22 @@ class kMeansClustering:
 
 		return sum(averageMSE)/len(clusterMembership)
 
+	def meanSquareSeparation(self, clusterCenters):
+		# print('MSS')
+		denamonitor = (len(clusterCenters)*(len(clusterCenters)-1))/2
+		# print('m8am', denamonitor)
+		res=0
+		for i in range(len(clusterCenters)):
+			# print('pair i', i, 'with')
+			for j in range(i+1, len(clusterCenters)):
+				# print(j)
+				for z in range(len(clusterCenters[0])):
+					euclideanDistance = np.square(np.sqrt(np.square(clusterCenters[i, z] - clusterCenters[j, z])))
+					res+=euclideanDistance
+		res = res/denamonitor
+		# print('final: ', res)
+		return res
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
