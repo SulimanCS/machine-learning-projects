@@ -79,6 +79,23 @@ class kMeansClustering:
 					minDistance = min(clusterResults, key=clusterResults.get)
 					clusterMembership[minDistance].append(rowNum)
 
+	def averageMeanSquareError(self, data, clusterCenters, clusterMembership):
+
+		# print('in averageMeanSquareError')
+		averageMSE = []
+		for i in clusterMembership:
+			res=0
+			for entry in clusterMembership[i]:
+				finalEuclideanDistance=0
+				for attributeNum in range(len(data[entry])):
+					euclideanDistance = np.square(np.sqrt(np.square(data[entry, attributeNum] - clusterCenters[i, attributeNum])))
+					finalEuclideanDistance+=euclideanDistance
+				res+=finalEuclideanDistance
+				# print(finalEuclideanDistance)
+			averageMSE.append(res/len(clusterMembership[i]))
+
+		return sum(averageMSE)/len(clusterMembership)
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
