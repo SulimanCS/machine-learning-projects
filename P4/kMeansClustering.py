@@ -64,6 +64,18 @@ class kMeansClustering:
 				# for every iteration, initialize the cluster membership
 				clusterMembership = {key: [] for key in range(len(samples))}
 
+				# loop through every entry in the training set
+				# save the row number in a different variable
+				for rowNum, row in enumerate(rows):
+					clusterResults = {key: [] for key in range(len(samples))}
+					# print(row, '---', clusterResults)
+					for sampleNum, sample in enumerate(samples):
+						# print(sampleNum)
+						# print(sample)
+						res = 0
+						for index in range(len(row)):
+							res += np.square(np.sqrt(np.square(row[index] - sample[index])))
+						clusterResults[sampleNum] = res
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
