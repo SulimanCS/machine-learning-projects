@@ -76,6 +76,9 @@ class kMeansClustering:
 						for index in range(len(row)):
 							res += np.square(np.sqrt(np.square(row[index] - sample[index])))
 						clusterResults[sampleNum] = res
+					minDistance = min(clusterResults, key=clusterResults.get)
+					clusterMembership[minDistance].append(rowNum)
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
