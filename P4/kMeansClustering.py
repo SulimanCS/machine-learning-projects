@@ -79,6 +79,18 @@ class kMeansClustering:
 					minDistance = min(clusterResults, key=clusterResults.get)
 					clusterMembership[minDistance].append(rowNum)
 
+				# update cluster centers
+				for clusterCenter in clusterMembership:
+					if clusterMembership[clusterCenter] == []:
+						samples[clusterCenter] = np.zeros(len(samples[0]), dtype=np.float64)
+						# TODO change this after trying k=30
+						print('yes')
+						exit(1)
+					else:
+						clusterRows = rows[clusterMembership[clusterCenter]]
+						for i in range(len(rows[0])):
+							samples[clusterCenter, i] = np.sum(clusterRows[:, i]) / len(clusterMembership[clusterCenter])
+
 	def averageMeanSquareError(self, data, clusterCenters, clusterMembership):
 
 		# print('in averageMeanSquareError')
