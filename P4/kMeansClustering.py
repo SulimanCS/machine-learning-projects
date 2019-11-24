@@ -40,6 +40,30 @@ class kMeansClustering:
 
 		numRuns = 5
 
+		# rows = [[0,1], [1,0], [2,0], [4,0]]
+		# samples = [[1,1], [4,1]]
+		# rows = np.asarray(rows, dtype=np.float64)
+		# samples = np.asarray(samples, dtype=np.float64)
+
+		# loop through the algorithm 5 times,
+		# and pick the best run
+		# the reason for this is because for every run
+		# the chosen random samples are different
+		for runNum in range(numRuns):
+			# in every new run, create a new cluster membership
+
+			# since the run starts at the first iteration
+			# we don't have the results of the previous iteration
+			# therefore, initialize to None
+			oldClusterMembership = None
+
+			tryy = 0
+			# loop until the old cluster membership matches the current one
+			while True:
+
+				# for every iteration, initialize the cluster membership
+				clusterMembership = {key: [] for key in range(len(samples))}
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
