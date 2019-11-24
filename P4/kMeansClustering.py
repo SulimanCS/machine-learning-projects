@@ -1,5 +1,6 @@
 import numpy as np
 import sys
+import copy
 
 # the kMeansClustering class houses
 # the K-Means CLustering structure
@@ -90,6 +91,22 @@ class kMeansClustering:
 						clusterRows = rows[clusterMembership[clusterCenter]]
 						for i in range(len(rows[0])):
 							samples[clusterCenter, i] = np.sum(clusterRows[:, i]) / len(clusterMembership[clusterCenter])
+
+				if oldClusterMembership == clusterMembership:
+					AMSE = self.averageMeanSquareError(rows, samples, clusterMembership)
+					print('exiting, ', runNum)
+					# exit(1)
+					break
+				if oldClusterMembership == None or oldClusterMembership != clusterMembership:
+					# print('we are here')
+					oldClusterMembership = copy.deepcopy(clusterMembership)
+
+					# exit(1)
+				# print('final samples:', samples)
+				# print('final cl:', clusterMembership)
+				tryy+=1
+				# if tryy == 2:
+				# 	exit(1)
 
 	def averageMeanSquareError(self, data, clusterCenters, clusterMembership):
 
