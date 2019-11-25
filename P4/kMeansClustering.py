@@ -55,6 +55,22 @@ class kMeansClustering:
 		# the reason for this is because for every run
 		# the chosen random samples are different
 		for runNum in range(numRuns):
+
+			# in every run, pick different random cluster centers
+
+			# get k random samples indices
+			indices = self.pickRandom(trainSet)
+
+			# copy the actual sample rows from the training set
+			samples = np.copy(trainSet[indices])
+
+			# store every row excluding the last column (class column)
+			samples = samples[:, :-1]
+
+			# store the last column of every row (class column)
+			samplesLabels = samples[:, -1]
+
+
 			# in every new run, create a new cluster membership
 
 			# since the run starts at the first iteration
