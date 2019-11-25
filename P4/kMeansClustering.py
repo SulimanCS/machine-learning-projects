@@ -46,6 +46,10 @@ class kMeansClustering:
 		# rows = np.asarray(rows, dtype=np.float64)
 		# samples = np.asarray(samples, dtype=np.float64)
 
+		# out of the N runs, store the necessary data for the
+		# best one
+		bestRun = None
+
 		# loop through the algorithm 5 times,
 		# and pick the best run
 		# the reason for this is because for every run
@@ -94,6 +98,16 @@ class kMeansClustering:
 
 				if oldClusterMembership == clusterMembership:
 					AMSE = self.averageMeanSquareError(rows, samples, clusterMembership)
+					if bestRun == None:
+						bestRun = {'AMSE': AMSE, 'clusterCenters': copy.deepcopy(samples), \
+						'clusterMembership': copy.deepcopy(clusterMembership)}
+					else:
+						if bestRun['AMSE'] > AMSE:
+							print('YES')
+							bestRun = {'AMSE': AMSE, 'clusterCenters': copy.deepcopy(samples), \
+							'clusterMembership': copy.deepcopy(clusterMembership)}
+							# exit(1)
+
 					print('exiting, ', runNum)
 					# exit(1)
 					break
