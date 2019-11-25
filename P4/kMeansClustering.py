@@ -220,6 +220,12 @@ class kMeansClustering:
 		print(meanEntropy)
 		return meanEntropy
 
+def writeConfusionMatrixToCSV(k, confusionMatrix):
+	filename = str(k)+'_k_units_confusion_matrix.csv'
+	with open(filename, 'w') as write:
+		write = csv.writer(write)
+		write.writerows(confusionMatrix)
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
