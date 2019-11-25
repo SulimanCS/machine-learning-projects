@@ -173,7 +173,8 @@ class kMeansClustering:
 				total+=1
 			res=0
 			for i in clusterDistribution:
-				res+=clusterDistribution[i]/total * np.log2(clusterDistribution[i]/total)
+				if total != 0:
+					res+=clusterDistribution[i]/total * np.log2(clusterDistribution[i]/total)
 			res = res * -1
 			entropy[cluster] = res
 
