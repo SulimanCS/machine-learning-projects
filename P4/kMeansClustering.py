@@ -1,6 +1,9 @@
 import numpy as np
 import sys
 import copy
+import csv
+import matplotlib.pyplot as plt
+import pandas as pd
 
 # the kMeansClustering class houses
 # the K-Means CLustering structure
@@ -228,6 +231,31 @@ class kMeansClustering:
 			* entropy[cluster]
 		print(meanEntropy)
 		return meanEntropy
+
+	def classify(self, trainSet, testSet, clusterMembership, clusterCenters):
+
+		# associate each cluster center with the most frequent class it contains
+		frequentClassPerCluster = {}
+		# print(len(trainSet))
+		# print(len(trainSet[0]))
+		lastIndex = len(trainSet[0]) - 1
+		for cluster in clusterMembership:
+			# print(clusterMembership[cluster])
+			clusterLabels = {}
+			for index in clusterMembership[cluster]:
+				classs = trainSet[index, lastIndex]
+				if classs not in clusterLabels:
+					clusterLabels[classs]=1
+				else:
+					clusterLabels[classs]+=1
+
+				# print(classs)
+			# print(clusterLabels)
+			# print(max(clusterLabels, key=clusterLabels.get))
+			frequentClassPerCluster[cluster] = int(max(clusterLabels, key=clusterLabels.get))
+			# exit(1)
+		# print('final')
+		# print(frequentClassPerCluster)
 
 def writeConfusionMatrixToCSV(k, confusionMatrix):
 	filename = str(k)+'_k_units_confusion_matrix.csv'
