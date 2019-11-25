@@ -171,6 +171,55 @@ class kMeansClustering:
 		# print('final: ', res)
 		return res
 
+	def meanEntropy(self, trainSet, clusterMembership):
+
+		# print(trainSet)
+		# print(len(trainSet))
+		# print(len(trainSet[0]))
+		# exit(1)
+		print('in mean entropy')
+		entropy = {key: 0 for key in clusterMembership}
+		for cluster in clusterMembership:
+			print('---')
+			clusterDistribution = {}
+			total=0
+			# print(clusterMembership[cluster])
+			# print(cluster)
+			for index in clusterMembership[cluster]:
+				lastColumn = len(trainSet[index]) - 1
+				if trainSet[index, lastColumn] not in clusterDistribution:
+					clusterDistribution[trainSet[index, lastColumn]] = 1
+				else:
+					clusterDistribution[trainSet[index, lastColumn]]+=1
+
+				total+=1
+			print(clusterDistribution)
+			# print('new start')
+			res=0
+			for i in clusterDistribution:
+				# print(clusterDistribution[i])
+				# print('final', clusterDistribution[i]/total * np.log2(clusterDistribution[i]/total))
+				res+=clusterDistribution[i]/total * np.log2(clusterDistribution[i]/total)
+			res = res * -1
+			entropy[cluster] = res
+		# 	print('new finish')
+		# 	print('---')
+		# print('entropy final', entropy)
+		# print('CM', clusterMembership)
+		# print('len of trainset', len(trainSet))
+		# fires = 0
+		# for c in clusterMembership:
+		# 	fires+=len(clusterMembership[c])
+		# print('fires', fires)
+		# TODO see the slides, calculate MEAN entropy
+		# TODO almost done
+		meanEntropy = 0
+		for cluster in clusterMembership:
+			meanEntropy += (len(clusterMembership[cluster])/len(trainSet)) \
+			* entropy[cluster]
+		print(meanEntropy)
+		return meanEntropy
+
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
 
