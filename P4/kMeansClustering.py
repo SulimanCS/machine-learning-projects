@@ -311,6 +311,8 @@ class kMeansClustering:
 			plt.savefig(filename)
 
 			# exit(1)
+		writeConfusionMatrixToCSV(self.k, confusionMatrix)
+
 def writeConfusionMatrixToCSV(k, confusionMatrix):
 	filename = str(k)+'_k_units_confusion_matrix.csv'
 	with open(filename, 'w') as write:
