@@ -299,6 +299,18 @@ class kMeansClustering:
 		print(pd.DataFrame(confusionMatrix))
 		print('accuracy=', correct/total)
 
+		# print(len(clusterCenters))
+		for clusterNum, centerPoint in enumerate(clusterCenters):
+			# print('Center PP', centerPoint)
+			# print('type Center PP', type(centerPoint))
+			imagePixels = copy.deepcopy(centerPoint)
+			imagePixels = imagePixels.reshape(8,8)
+			plt.imshow(imagePixels, cmap="gray")
+			# plt.show()
+			filename = 'k'+str(self.k)+'-'+str(clusterNum)+'.png'
+			plt.savefig(filename)
+
+			# exit(1)
 def writeConfusionMatrixToCSV(k, confusionMatrix):
 	filename = str(k)+'_k_units_confusion_matrix.csv'
 	with open(filename, 'w') as write:
