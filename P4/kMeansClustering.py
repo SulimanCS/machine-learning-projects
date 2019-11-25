@@ -256,3 +256,18 @@ def loadSet(filename):
 	# are separated by a comma
 	return np.loadtxt(filename, delimiter=',', dtype=np.float64)
 
+def main():
+
+	trainSetFileName = 'data/optdigits.train'
+	testSetFileName = 'data/optdigits.test'
+
+	k = 10
+	KMC = kMeansClustering(k)
+
+	trainSet = loadSet(trainSetFileName)
+	testSet = loadSet(testSetFileName)
+
+	trainResults = KMC.train(trainSet)
+	KMC.classify(trainSet, testSet, trainResults['clusterMembership'], trainResults['clusterCenters'])
+
+main()
