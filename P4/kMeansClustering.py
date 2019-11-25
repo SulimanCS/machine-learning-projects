@@ -257,6 +257,48 @@ class kMeansClustering:
 		# print('final')
 		# print(frequentClassPerCluster)
 
+		# assign each test instance the class of the closest cluster center
+		# compute accuracy and confusion matrix
+		confusionMatrix = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+		correct=0
+		total=len(testSet)
+
+		# store every row excluding the last column (class column)
+		rows = testSet[:, :-1]
+
+		# store the last column of every row (class column)
+		labels = testSet[:, -1]
+
+		# loop through every entry in the test set
+		# save the row number in a different variable
+		for rowNum, row in enumerate(rows):
+			clusterResults = {key: [] for key in range(len(clusterCenters))}
+			# print(row, '---', clusterResults)
+			for sampleNum, sample in enumerate(clusterCenters):
+				# print(sampleNum)
+				# print(sample)
+				res = 0
+				for index in range(len(row)):
+					res += np.square(np.sqrt(np.square(row[index] - sample[index])))
+				clusterResults[sampleNum] = res
+			# print('cluster results', clusterResults)
+			minDistance = min(clusterResults, key=clusterResults.get)
+			# print('min distance', minDistance)
+			# print('rowNum', rowNum)
+			# print('row label', labels[rowNum])
+			# print('FCPC minDis', frequentClassPerCluster[minDistance])
+			if frequentClassPerCluster[minDistance] == labels[rowNum]:
+				correct+=1
+			confusionMatrix[int(labels[rowNum])][int(frequentClassPerCluster[minDistance])]+=1
+		print(frequentClassPerCluster)
+		print(pd.DataFrame(confusionMatrix))
+		print('accuracy=', correct/total)
+
 def writeConfusionMatrixToCSV(k, confusionMatrix):
 	filename = str(k)+'_k_units_confusion_matrix.csv'
 	with open(filename, 'w') as write:
