@@ -137,6 +137,15 @@ class kMeansClustering:
 				tryy+=1
 				# if tryy == 2:
 				# 	exit(1)
+				print('try:', tryy, '  run num:', runNum)
+
+		bestRun['MSS'] = self.meanSquareSeparation(bestRun['clusterCenters'])
+		bestRun['meanEntropy'] = self.meanEntropy(trainSet, bestRun['clusterMembership'])
+		print('final values')
+		print('ASME', bestRun['AMSE'])
+		print('MSS', bestRun['MSS'])
+		print('MEAN ENTROPY', bestRun['meanEntropy'])
+		return bestRun
 
 	def averageMeanSquareError(self, data, clusterCenters, clusterMembership):
 
