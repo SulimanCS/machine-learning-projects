@@ -1,3 +1,16 @@
+# ==============================================
+# Name: Suliman Alsarraf
+# Assignment: Project 4
+# Class: CS445 Machine Learning
+# ==============================================
+
+# ==============================================
+# to run the program, you must have optdigits.train and
+# optdigits.test in the same directory
+# to change the k value, please go to line 282
+# and change the value of k
+# ==============================================
+
 import numpy as np
 import sys
 import copy
