@@ -14,3 +14,5 @@ computed by presenting the same training dataset and a test dataset to the netwo
 computed prediction correctness over the dataset for the different networks.
 
 **Project 3:** This project aims to train a supervised Machine Learning Naive Bayes classifier to predict if a given set of features belong to one of a set of classes P(feature | Class). Due to the simplicity of Naive Bayes classifiers, the accuracy of Naive Bayes classifiers is notably lower in comparison to previous projects.
+
+**Project 4**: This project aims to train an unsupervised Machine Learning K-Means Clustering algorithm to classify similar handwritten digits into distinct subgroups (clusters). It starts with selecting 10 random cluster centers and uses those cluster centers to join all inputs to the cluster closest to the respective input. After every iteration, the cluster centers are recomputed by computing the means of obtained clusters. The process comes to an end when the set of cluster centers does not change in comparison to the previous iteration.
