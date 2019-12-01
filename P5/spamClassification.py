@@ -74,3 +74,14 @@ def preprocessing(data):
 	# scale train data using sklearn
 	scaledTrainSet = sklearn.preprocessing.scale(trainSet)
 
+	# initialize scaled test set to be contiguous in memory
+	scaledTestSet = np.zeros((len(testSet), len(testSet[0])))
+
+	for rowNum, i in enumerate(testSet):
+		for j in range(len(i)):
+			# mean = np.mean(trainSet[:, j])
+			# std = np.std(trainSet[:, j])
+			mean = columnData[j]['mean']
+			std = columnData[j]['std']
+			scaledTestSet[rowNum, j] = (testSet[rowNum, j] - mean)/std
+
