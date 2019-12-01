@@ -85,3 +85,5 @@ def preprocessing(data):
 			std = columnData[j]['std']
 			scaledTestSet[rowNum, j] = (testSet[rowNum, j] - mean)/std
 
+	return scaledTrainSet, scaledTestSet, trainLabels, testLabels
+
