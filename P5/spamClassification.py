@@ -63,3 +63,11 @@ def preprocessing(data):
 	# be equal to total dataset length
 	assert(len(trainSet) + len(testSet) == len(data))
 
+	# initialize a dictionary that computes mean and std
+	# values for every column
+	columnData = {key: {} for key in range(len(trainSet[0]))}
+	for i in columnData:
+		# for every column, compute mean and std
+		columnData[i]['mean'] = np.mean(trainSet[:, i])
+		columnData[i]['std'] = np.std(trainSet[:, i])
+
