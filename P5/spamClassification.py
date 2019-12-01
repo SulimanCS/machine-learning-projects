@@ -71,3 +71,6 @@ def preprocessing(data):
 		columnData[i]['mean'] = np.mean(trainSet[:, i])
 		columnData[i]['std'] = np.std(trainSet[:, i])
 
+	# scale train data using sklearn
+	scaledTrainSet = sklearn.preprocessing.scale(trainSet)
+
