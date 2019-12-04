@@ -5,6 +5,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 import numpy as np
 import copy
 from sklearn.metrics import roc_curve, auc
+import matplotlib.pyplot as plt
 
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
@@ -115,4 +116,13 @@ def linearSVM(data):
 		fpr[i], tpr[i], _  = roc_curve(testLabels, score)
 		fpr[i], tpr[i], _  = roc_curve(testLabels, predictions)
 		roc_auc[i] = auc(fpr[i], tpr[i])
+
+	plt.figure()
+	plt.plot(fpr[1], tpr[1])
+	plt.xlim([0.0, 1.0])
+	plt.ylim([0.0, 1.05])
+	plt.xlabel('False Positive Rate')
+	plt.ylabel('True Positive Rate')
+	plt.title('Receiver operating characteristic')
+	plt.show()
 
