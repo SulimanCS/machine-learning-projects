@@ -4,6 +4,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import classification_report, confusion_matrix
 import numpy as np
 import copy
+from sklearn.metrics import roc_curve, auc
 
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
@@ -105,4 +106,13 @@ def linearSVM(data):
 	print(correct/total)
 	print(confusionMatrix)
 	print(classification_report(testLabels, predictions))
+
+	fpr = dict()
+	tpr = dict()
+	roc_auc = dict()
+	score = SVClassifier.fit(trainSet, trainLabels).decision_function(testSet)
+	for i in range(len([0,1])):
+		fpr[i], tpr[i], _  = roc_curve(testLabels, score)
+		fpr[i], tpr[i], _  = roc_curve(testLabels, predictions)
+		roc_auc[i] = auc(fpr[i], tpr[i])
 
