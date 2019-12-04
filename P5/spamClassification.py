@@ -87,3 +87,11 @@ def preprocessing(data):
 
 	return scaledTrainSet, scaledTestSet, trainLabels, testLabels
 
+def linearSVM(data):
+
+	trainSet, testSet, trainLabels, testLabels = preprocessing(data)
+	SVClassifier = SVC(kernel='linear')
+	# print(s)
+	SVClassifier.fit(trainSet, trainLabels)
+	predictions = SVClassifier.predict(testSet)
+
