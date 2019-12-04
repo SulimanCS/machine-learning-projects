@@ -95,3 +95,14 @@ def linearSVM(data):
 	SVClassifier.fit(trainSet, trainLabels)
 	predictions = SVClassifier.predict(testSet)
 
+	total = len(testSet)
+	correct = 0
+	confusionMatrix = confusion_matrix(testLabels, predictions)
+
+	for i in range(len(predictions)):
+		if testLabels[i] == predictions[i]: correct+=1
+
+	print(correct/total)
+	print(confusionMatrix)
+	print(classification_report(testLabels, predictions))
+
