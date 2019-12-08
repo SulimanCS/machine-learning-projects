@@ -75,6 +75,7 @@ class naiveBayes:
 		total = len(testSet)
 		confusionMatrix = [[0, 0], [0, 0]]
 		predictedClasses = []
+		FP = FN = TP = TN = 0
 
 		# main loop that goes over every row of the test set
 		for objectID, i in enumerate(testSet, start=1):
@@ -138,12 +139,25 @@ class naiveBayes:
 				currentAccuracy = 1
 			else:
 				currentAccuracy = 0
+
+			if label == 0:
+				if predictionMax == 0:
+					TN+=1
+				if predictionMax == 1:
+					FP+=1
+			if label == 1:
+				if predictionMax == 0:
+					FN+=1
+				if predictionMax == 1:
+					TP+=1
 			# confusionMatrix[label][predictionMax]+=1
 			predictedClasses.append(predictionMax)
 			print('ID=%5d, predicted=%3d, probability = %.4f, true=%3d, accuracy=%4.2f' \
 				% (objectID, keys[0], predictions[predictionMax], label, currentAccuracy))
 
 		print('classification accuracy=%6.4f' % (accuracy/total))
+		print('recall', TP/(TP+FN))
+		print('percision', TP/(TP+FP))
 		return np.asarray(predictedClasses, dtype=np.float64)
 
 # loads the dataset file elements as floats into a 2D numpy array
