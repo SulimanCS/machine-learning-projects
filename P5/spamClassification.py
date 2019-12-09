@@ -227,3 +227,24 @@ def logisticRegression(data):
 	confusionMatrix = confusion_matrix(testLabels, predictions)
 	print(confusionMatrix)
 
+def main():
+
+	# uncomment the first line depending on the location
+	# of Spambase
+
+	# filename = 'spambase.data'
+	filename = 'data/spambase.data'
+
+	# load data set
+	data = loadSet(filename)
+
+	# part 1: linear support-vector machine
+	linearSVM(data)
+
+	# part 2: naive bayes classification
+	naiveBayesClassification(data)
+
+	# part 3: logistic regression
+	logisticRegression(data)
+
+main()
