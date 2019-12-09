@@ -7,6 +7,7 @@ import copy
 from sklearn.metrics import roc_curve, auc
 import matplotlib.pyplot as plt
 from naiveBayes import naiveBayes
+from sklearn.linear_model import LogisticRegression
 
 # loads the dataset file elements as floats into a 2D numpy array
 def loadSet(filename):
@@ -210,6 +211,19 @@ def naiveBayesClassification(data):
 	NB.trainingOutput()
 	predictions = NB.classify(testSet)
 
+	confusionMatrix = confusion_matrix(testLabels, predictions)
+	print(confusionMatrix)
+
+def logisticRegression(data):
+
+	trainSet, testSet, trainLabels, testLabels = preprocessing(data)
+	logisticRegr = LogisticRegression()
+	logisticRegr.fit(trainSet, trainLabels)
+	predictions = logisticRegr.predict(testSet)
+
+	print(classification_report(testLabels, predictions))
+	score = logisticRegr.score(testSet, testLabels)
+	print(score)
 	confusionMatrix = confusion_matrix(testLabels, predictions)
 	print(confusionMatrix)
 
