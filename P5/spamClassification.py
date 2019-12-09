@@ -125,7 +125,7 @@ def linearSVM(data):
 	plt.ylim([0.0, 1.05])
 	plt.xlabel('False Positive Rate')
 	plt.ylabel('True Positive Rate')
-	plt.title('Receiver operating characteristic')
+	plt.title('ROC Curve')
 	plt.show()
 
 def naiveBayesClassification(data):
