@@ -154,18 +154,18 @@ def naiveBayesClassification(data):
 	# with equal amount of 0s and 1s
 
 	# initialize train set
-	trainSet = np.empty((0, len(data[0])), dtype=np.float64)
-
-	# stack half of 0s and 1s into the train set
-	trainSet = np.vstack((trainSet, zeroes[0:len(zeroes)//2, :]))
-	trainSet = np.vstack((trainSet, ones[0:len(ones)//2, :]))
-
-	# initialize test set
 	testSet = np.empty((0, len(data[0])), dtype=np.float64)
 
+	# stack half of 0s and 1s into the train set
+	testSet = np.vstack((testSet, zeroes[0:len(zeroes)//2, :]))
+	testSet = np.vstack((testSet, ones[0:len(ones)//2, :]))
+
+	# initialize test set
+	trainSet = np.empty((0, len(data[0])), dtype=np.float64)
+
 	# stack half of 0s and 1s into the test set
-	testSet = np.vstack((testSet, zeroes[len(zeroes)//2:len(zeroes), :]))
-	testSet = np.vstack((testSet, ones[len(ones)//2:len(ones), :]))
+	trainSet = np.vstack((trainSet, zeroes[len(zeroes)//2:len(zeroes), :]))
+	trainSet = np.vstack((trainSet, ones[len(ones)//2:len(ones), :]))
 
 	# extract labels for both sets
 	trainLabels = trainSet[:, -1]
