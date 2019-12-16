@@ -93,32 +93,49 @@ def preprocessing(data):
 
 def linearSVM(data):
 
+	# get scaled training and testing sets alongside their labels
 	trainSet, testSet, trainLabels, testLabels = preprocessing(data)
+
+	# initialize linear SVM using sklearn
 	SVClassifier = SVC(kernel='linear')
-	# print(s)
+
+	# train the model
 	SVClassifier.fit(trainSet, trainLabels)
+
+	# predict using test set
 	predictions = SVClassifier.predict(testSet)
 
+	# compute accuracy and confusion matrix
 	total = len(testSet)
 	correct = 0
 	confusionMatrix = confusion_matrix(testLabels, predictions)
 
+	# loop through predictions and compute total accuracy
 	for i in range(len(predictions)):
 		if testLabels[i] == predictions[i]: correct+=1
 
+	# print total accuracy
 	print(correct/total)
+
+	# print confusion matrix
 	print(confusionMatrix)
+
+	# print classification report provided by the sklearn library
 	print(classification_report(testLabels, predictions))
 
+	# initialize FPR and TPR variables to generate ROC curve
 	fpr = dict()
 	tpr = dict()
 	roc_auc = dict()
 	score = SVClassifier.fit(trainSet, trainLabels).decision_function(testSet)
+
+	# get ROC curve data over time
 	for i in range(len([0,1])):
 		fpr[i], tpr[i], _  = roc_curve(testLabels, score)
 		fpr[i], tpr[i], _  = roc_curve(testLabels, predictions)
 		roc_auc[i] = auc(fpr[i], tpr[i])
 
+	# generate ROC curve using matplotlib
 	plt.figure()
 	plt.plot(fpr[1], tpr[1])
 	plt.xlim([0.0, 1.0])
@@ -179,7 +196,7 @@ def naiveBayesClassification(data):
 	# be equal to total dataset length
 	assert(len(trainSet) + len(testSet) == len(data))
 
-	# TODO make sure 40% 60%
+	# uncomment to test 40% 60% distribution
 	# z = 0
 	# o = 0
 	# t = len(trainSet)
@@ -207,33 +224,47 @@ def naiveBayesClassification(data):
 	# classes, and number of attributes in the given set
 	NB = naiveBayes(len(classes), numAttributes, classes)
 
+	# train and predict using provided naive bayes code
 	NB.train(trainSet)
 	NB.trainingOutput()
 	predictions = NB.classify(testSet)
 
+	# compute confusion matrix and print it
 	confusionMatrix = confusion_matrix(testLabels, predictions)
 	print(confusionMatrix)
 
 def logisticRegression(data):
 
+	# get training and testing sets alongside their labels
 	trainSet, testSet, trainLabels, testLabels = preprocessing(data)
+
+	# initialize logistic regression using sklearn
 	logisticRegr = LogisticRegression()
+
+	# train the model
 	logisticRegr.fit(trainSet, trainLabels)
+
+	# predict using test set
 	predictions = logisticRegr.predict(testSet)
 
+	# print classification report provided by the sklearn library
 	print(classification_report(testLabels, predictions))
+
+	# compute accuracy
 	score = logisticRegr.score(testSet, testLabels)
 	print(score)
+
+	# compute confusion matrix
 	confusionMatrix = confusion_matrix(testLabels, predictions)
 	print(confusionMatrix)
 
 def main():
 
-	# uncomment the first line depending on the location
+	# adjust the first line depending on the location
 	# of Spambase
 
-	# filename = 'spambase.data'
-	filename = 'data/spambase.data'
+	filename = 'spambase.data'
+	# filename = 'data/spambase.data'
 
 	# load data set
 	data = loadSet(filename)
