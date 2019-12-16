@@ -1,3 +1,15 @@
+# ==============================================
+# Name: Suliman Alsarraf
+# Assignment: Project 5
+# Class: CS445 Machine Learning
+# ==============================================
+
+# ==============================================
+# to run the program, you must have Spambase
+# in the same directory
+# to specify another location, please adjust line 279
+# ==============================================
+
 import sklearn
 from sklearn import preprocessing
 from sklearn.svm import SVC

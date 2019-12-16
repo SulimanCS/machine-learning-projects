@@ -1,3 +1,14 @@
+# ==============================================
+# Name: Suliman Alsarraf
+# Assignment: Project 5
+# NOTE: part of code previously used in project 3
+# Class: CS445 Machine Learning
+# ==============================================
+
+# ==============================================
+# this file is used in conjunction with spamClassification.py
+# all code in naiveBayes.py is written by Suliman Alsarraf
+# ==============================================
 import sys
 import numpy as np
 
