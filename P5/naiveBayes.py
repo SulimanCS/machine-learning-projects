@@ -95,6 +95,7 @@ class naiveBayes:
 				for z, k in enumerate(row):
 					curMean = self.uniqueClasses[j]['mean'][z]
 					curStd = self.uniqueClasses[j]['std'][z]
+					curStd+=0.0001
 					PDF = 1 / (np.sqrt(2*np.pi) * curStd) \
 					* np.exp((-1*np.square(k - curMean)) / (2*np.square(curStd)))
 
@@ -107,11 +108,13 @@ class naiveBayes:
 				# compute the final prediction value of the current class,
 				# for the current entry in the test dataset
 				finalPredictionValue = 0
+				logProd = 1
 				for x in results:
 					if x == 0:
 						continue
-					finalPredictionValue += np.log(x)
+					logProd = logProd * x
 
+				finalPredictionValue = np.log(logProd)
 				# store and link the final prediction value to its respective class
 				predictions[j] = finalPredictionValue
 
